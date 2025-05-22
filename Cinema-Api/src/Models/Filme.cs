@@ -12,7 +12,7 @@ public class Filme
 
 	public float NotaIMDB { get; set; }
 
-	public int DiretorId { get; set; }
+	public required Diretor Diretor { get; set; }
 
 	public ICollection<FilmeGenero> FilmesGeneros { get; set; } = [];
 }
