@@ -1,14 +1,16 @@
 namespace Cinema_Api.src.Models.DTOs;
 
-public record FilmeDTO(
-	string Titulo,
-	int AnoLancamento,
-	string Sinopse,
-	float NotaIMDB,
-	List<string> Generos,
-	DiretorDTO Diretor
-)
+public class FilmeDTO
 {
-	public FilmeDTO()
-		: this("", default, "", default, [], null!) { }
+	public required string Titulo { get; set; }
+
+	public required int AnoLancamento { get; set; }
+
+	public required string Sinopse { get; set; }
+
+	public required float NotaIMDB { get; set; }
+
+	public required List<string> Generos { get; set; }
+
+	public required DiretorDTO Diretor { get; set; }
 }
