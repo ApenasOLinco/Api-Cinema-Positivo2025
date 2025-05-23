@@ -9,12 +9,10 @@ public class FilmeAtor
 	public int FilmeId { get; set; }
 
 	[JsonIgnore]
-
 	public Filme Filme { get; set; } = null!;
 
-	public int GeneroId { get; set; }
+	public int AtorId { get; set; }
 
-	[JsonIgnoreAttribute]
-	
-	public Genero Genero { get; set; } = null!;
+	[JsonIgnore]
+	public Ator Ator { get; set; } = null!;
 }

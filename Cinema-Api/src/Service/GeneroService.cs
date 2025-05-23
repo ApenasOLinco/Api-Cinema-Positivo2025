@@ -15,7 +15,7 @@ public class GeneroService(MasterContext masterContext)
 	/// <returns>O gênero criado, ou <c>null</c> caso ele já exista</returns>
 	public string? NovoGenero(string genero)
 	{
-		var existe = _masterContext.Genero.Where(g => g.Nome.ToLower().Equals(genero)).Any();
+		var existe = _masterContext.Genero.FirstOrDefault(g => g.Nome.Equals(genero)) is not null;
 
 		if (existe)
 			return null;

@@ -1,28 +1,34 @@
+using AutoMapper;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
+using Cinema_Api.src.Models.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
 
-public class FilmesService(MasterContext masterContext, GeneroService generoService)
+public class FilmesService(
+	MasterContext masterContext,
+	GeneroService generoService,
+	DiretorService diretorService
+)
 {
 	private readonly MasterContext _masterContext = masterContext;
+
 	private readonly GeneroService _generoService = generoService;
+
+	private readonly DiretorService _diretorService = diretorService;
+
+	// Ferramenta que transforma objetos de um tipo para objetos de outro
+	private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
 
 	public List<FilmeDTO> AllFilmes()
 	{
 		var filmes = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
 			.ThenInclude(fg => fg.Genero)
-			.Select(f => new FilmeDTO(
-				f.Titulo,
-				f.AnoLancamento,
-				f.Sinopse,
-				f.NotaIMDB,
-				f.FilmesGeneros.Select(fg => fg.Genero.Nome).ToList(),
-				new DiretorDTO { Nome = "", DataNascimento = "" }
-			))
+			.Include(f => f.Diretor)
+			.Select(f => Mapper.Map<Filme, FilmeDTO>(f))
 			.ToList();
 
 		return filmes;
@@ -33,14 +39,9 @@ public class FilmesService(MasterContext masterContext, GeneroService generoServ
 		var filme = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
 			.ThenInclude(fg => fg.Genero)
+			.Include(f => f.Diretor)
 			.Where(f => f.Id == id)
-			.Select(f => new FilmeDTO(
-				f.Titulo,
-				f.AnoLancamento,
-				f.Sinopse,
-				f.NotaIMDB,
-				f.FilmesGeneros.Select(fg => fg.Genero.Nome).ToList()
-			))
+			.Select(f => Mapper.Map<Filme, FilmeDTO>(f))
 			.FirstOrDefault();
 
 		return filme;
@@ -55,7 +56,7 @@ public class FilmesService(MasterContext masterContext, GeneroService generoServ
 
 		// Verifica se um filme com mesmo título e
 		// ano de lançamento já existe no banco de dados
-		var existe = masterContext
+		var existe = _masterContext
 			.Filme.Where(filmeBd =>
 				filmeBd.Titulo.ToLower().Equals(filmeDto.Titulo.ToLower())
 				&& filmeBd.AnoLancamento == filmeDto.AnoLancamento
@@ -63,17 +64,11 @@ public class FilmesService(MasterContext masterContext, GeneroService generoServ
 			.Any();
 
 		if (existe)
-		{
 			return null;
-		}
 
-		var filme = new Filme
-		{
-			Titulo = filmeDto.Titulo,
-			Sinopse = filmeDto.Sinopse,
-			NotaIMDB = filmeDto.NotaIMDB,
-			AnoLancamento = filmeDto.AnoLancamento,
-		};
+		var diretor = _diretorService.GetExistenteOuCriar(filmeDto.Diretor);
+
+		var filme = Mapper.Map<FilmeDTO, Filme>(filmeDto);
 
 		_masterContext.Filme.Add(filme);
 		_masterContext.SaveChanges();

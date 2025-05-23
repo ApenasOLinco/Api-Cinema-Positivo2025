@@ -8,26 +8,40 @@ public class DiretorService(MasterContext masterContext)
 {
 	private readonly MasterContext _masterContext = masterContext;
 
-	public Diretor? SingleByNomeAndDataNascimento(string nome, DateOnly dataNascimento)
-	{
-		return _masterContext.Diretor.First(d =>
-			d.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase)
-			&& d.DataNascimento.Equals(dataNascimento)
-		);
-	}
-
 	public Diretor? NovoDiretor(DiretorDTO diretor)
 	{
-		var existe =
-			SingleByNomeAndDataNascimento(diretor.Nome, diretor.DataNascimento) is not null;
+		var existe = SingleByNomeAndDataNascimento(diretor.Nome, diretor.DataNasc) is not null;
 
+		// TODO Criar BusinessExceptions para esse tipo de caso
 		if (existe)
 			return null;
 
+		Diretor novoDiretor = CriarDiretor(diretor);
+		return novoDiretor;
+	}
+
+	public Diretor GetExistenteOuCriar(DiretorDTO dto)
+	{
+		var diretor = SingleByNomeAndDataNascimento(dto.Nome, dto.DataNasc);
+
+		diretor ??= CriarDiretor(dto); // Se for nulo, cria um novo
+
+		return diretor;
+	}
+
+	private Diretor? SingleByNomeAndDataNascimento(string nome, DateOnly dataNasc)
+	{
+		return _masterContext.Diretor.First(d =>
+			d.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase) && d.DataNasc.Equals(dataNasc)
+		);
+	}
+
+	private Diretor CriarDiretor(DiretorDTO diretor)
+	{
 		var novoDiretor = new Diretor
 		{
 			Nome = diretor.Nome,
-			DataNascimento = diretor.DataNascimento,
+			DataNasc = diretor.DataNasc,
 			Biografia = diretor.Biografia!,
 		};
 
