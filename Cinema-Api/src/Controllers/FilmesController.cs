@@ -12,17 +12,17 @@ public class FilmesController(FilmesService service) : ControllerBase
 	private FilmesService FilmesService { get; } = service;
 
 	[HttpGet]
-	public ActionResult<List<FilmeDTO>> AllFilmes()
+	public ActionResult<List<FilmeDTO>> TodosOsFilmes()
 	{
-		var filmes = FilmesService.AllFilmes();
+		var filmes = FilmesService.TodosOsFilmes();
 
 		return Ok(filmes);
 	}
 
 	[HttpGet("{id}")]
-	public ActionResult<FilmeDTO> SingleFilme([FromRoute(Name = "id")] int id)
+	public ActionResult<FilmeDTO> UmFilme([FromRoute(Name = "id")] int id)
 	{
-		var filme = FilmesService.SingleFilme(id);
+		var filme = FilmesService.UmFilme(id);
 
 		return filme is null ? NotFound() : Ok(filme);
 	}
@@ -37,7 +37,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 			return Conflict("O filme já existe no banco de dados.");
 		}
 
-		return CreatedAtAction(nameof(SingleFilme), new { id = filmeCriado.Id }, filme);
+		return CreatedAtAction(nameof(UmFilme), new { id = filmeCriado.Id }, filme);
 	}
 
 	[HttpDelete("{id}")]

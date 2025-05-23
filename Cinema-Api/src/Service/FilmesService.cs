@@ -23,7 +23,7 @@ public class FilmesService(
 	// Ferramenta que transforma objetos de um tipo para objetos de outro
 	private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
 
-	public List<FilmeDTO> AllFilmes()
+	public List<FilmeDTO> TodosOsFilmes()
 	{
 		var filmes = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
@@ -35,7 +35,7 @@ public class FilmesService(
 		return filmes;
 	}
 
-	public FilmeDTO? SingleFilme(int id)
+	public FilmeDTO? UmFilme(int id)
 	{
 		var filme = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
