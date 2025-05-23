@@ -10,7 +10,11 @@ builder.Services.AddScoped<GeneroService>();
 builder.Services.AddScoped<DiretorService>();
 
 // Add Controllers to the container.
-builder.Services.AddControllers();
+builder
+	.Services.AddControllers()
+	.AddJsonOptions(options =>
+		options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter())
+	);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

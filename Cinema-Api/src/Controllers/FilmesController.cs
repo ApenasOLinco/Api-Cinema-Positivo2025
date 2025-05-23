@@ -28,7 +28,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 	}
 
 	[HttpPost]
-	public ActionResult<FilmeDTO> NovoFilme(FilmeDTO filme)
+	public ActionResult<FilmeDTO> NovoFilme([FromBody] FilmeDTO filme)
 	{
 		var filmeCriado = FilmesService.NovoFilme(filme);
 
