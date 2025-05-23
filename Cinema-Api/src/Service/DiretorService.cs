@@ -1,4 +1,5 @@
 using Cinema_Api.src.Context;
+using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
 
@@ -8,13 +9,14 @@ public class DiretorService(MasterContext masterContext)
 {
 	private readonly MasterContext _masterContext = masterContext;
 
-	public Diretor? NovoDiretor(DiretorDTO diretor)
+	public Diretor NovoDiretor(DiretorDTO diretor)
 	{
 		var existe = SingleByNomeAndDataNascimento(diretor.Nome, diretor.DataNasc) is not null;
 
-		// TODO Criar BusinessExceptions para esse tipo de caso
 		if (existe)
-			return null;
+			throw new AlreadyExistsException(
+				"Uma entidade Diretor com Nome e Data de Nascimento iguais ao fornecido já existe."
+			);
 
 		Diretor novoDiretor = CriarDiretor(diretor);
 		return novoDiretor;

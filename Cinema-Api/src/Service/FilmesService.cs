@@ -1,5 +1,6 @@
 using AutoMapper;
 using Cinema_Api.src.Context;
+using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.Mapper;
@@ -35,7 +36,7 @@ public class FilmesService(
 		return filmes;
 	}
 
-	public FilmeDTO? UmFilme(int id)
+	public FilmeDTO UmFilme(int id)
 	{
 		var filme = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
@@ -45,10 +46,12 @@ public class FilmesService(
 			.Select(f => Mapper.Map<Filme, FilmeDTO>(f))
 			.FirstOrDefault();
 
-		return filme;
+		return filme is null
+			? throw new EntityNotFoundException($"Uma entidade Filme de Id {id} não existe.")
+			: filme;
 	}
 
-	public Filme? NovoFilme(FilmeDTO filmeDto)
+	public Filme NovoFilme(FilmeDTO filmeDto)
 	{
 		foreach (string dtoGenero in filmeDto.Generos)
 		{
@@ -65,7 +68,9 @@ public class FilmesService(
 			.Any();
 
 		if (existe)
-			return null;
+			throw new AlreadyExistsException(
+				"Uma entidade Filme com título e data de lançamento iguais ao fornecido já existe."
+			);
 
 		var diretor = _diretorService.GetExistenteOuCriar(filmeDto.Diretor);
 
@@ -81,7 +86,7 @@ public class FilmesService(
 	{
 		var filme =
 			_masterContext.Filme.FirstOrDefault(f => f.Id == id)
-			?? throw new EntityNotFoundException($"A entidade Filme de id {id} não existe.");
+			?? throw new EntityNotFoundException($"Uma entidade Filme de id {id} não existe.");
 
 		_masterContext.Filme.Remove(_masterContext.Filme.First(f => f.Id == id));
 		_masterContext.SaveChanges();
