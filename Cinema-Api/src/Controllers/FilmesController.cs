@@ -40,6 +40,9 @@ public class FilmesController(FilmesService service) : ControllerBase
 		return CreatedAtAction(nameof(UmFilme), new { id = filmeCriado.Id }, filme);
 	}
 
+	[HttpPatch("{id}")]
+	public ActionResult<FilmeDTO> 
+
 	[HttpDelete("{id}")]
 	public ActionResult DeletarFilme([FromRoute(Name = "id")] int id)
 	{
