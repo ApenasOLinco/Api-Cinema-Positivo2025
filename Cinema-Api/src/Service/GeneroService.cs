@@ -11,16 +11,19 @@ public class GeneroService(MasterContext masterContext)
 	/// Cria um novo gênero, se o gênero fornecido ainda não
 	/// existir no banco de dados.
 	/// </summary>
-	/// <param name="genero">O nome do gênero a ser criado</param>
+	/// <param name="nomeGenero">O nome do gênero a ser criado</param>
 	/// <returns>O gênero criado, ou <c>null</c> caso ele já exista</returns>
-	public string? NovoGenero(string genero)
+	public Genero? NovoGenero(string nomeGenero)
 	{
-		var existe = _masterContext.Genero.FirstOrDefault(g => g.Nome.Equals(genero)) is not null;
+		var existe =
+			_masterContext.Genero.FirstOrDefault(g => g.Nome.Equals(nomeGenero)) is not null;
 
 		if (existe)
 			return null;
 
-		_masterContext.Genero.Add(new Genero { Nome = genero });
+		Genero genero = new() { Nome = nomeGenero };
+		_masterContext.Genero.Add(genero);
+		_masterContext.SaveChanges();
 
 		return genero;
 	}

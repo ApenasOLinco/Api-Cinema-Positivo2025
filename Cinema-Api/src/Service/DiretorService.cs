@@ -31,9 +31,12 @@ public class DiretorService(MasterContext masterContext)
 
 	private Diretor? SingleByNomeAndDataNascimento(string nome, DateOnly dataNasc)
 	{
-		return _masterContext.Diretor.First(d =>
-			d.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase) && d.DataNasc.Equals(dataNasc)
-		);
+		return _masterContext
+			.Diretor.AsEnumerable()
+			.FirstOrDefault(d =>
+				d.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase)
+				&& d.DataNasc.Equals(dataNasc)
+			);
 	}
 
 	private Diretor CriarDiretor(DiretorDTO diretor)

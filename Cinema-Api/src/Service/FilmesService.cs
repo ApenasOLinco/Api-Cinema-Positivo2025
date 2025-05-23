@@ -3,6 +3,7 @@ using Cinema_Api.src.Context;
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.Mapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
@@ -74,5 +75,15 @@ public class FilmesService(
 		_masterContext.SaveChanges();
 
 		return filme;
+	}
+
+	public void DeletarFilme(int id)
+	{
+		var filme =
+			_masterContext.Filme.FirstOrDefault(f => f.Id == id)
+			?? throw new EntityNotFoundException($"A entidade Filme de id {id} não existe.");
+
+		_masterContext.Filme.Remove(_masterContext.Filme.First(f => f.Id == id));
+		_masterContext.SaveChanges();
 	}
 }
