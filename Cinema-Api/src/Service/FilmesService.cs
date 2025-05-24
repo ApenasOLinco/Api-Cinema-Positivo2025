@@ -44,12 +44,11 @@ public class FilmesService(
 			.ThenInclude(fg => fg.Genero)
 			.Include(f => f.Diretor)
 			.Where(f => f.Id == id)
-			.Select(f => Mapper.Map<Filme, FilmeDTO>(f))
 			.FirstOrDefault();
 
 		return filme is null
 			? throw new EntityNotFoundException($"Uma entidade Filme de Id {id} não existe.")
-			: filme;
+			: Mapper.Map<Filme, FilmeDTO>(filme);
 	}
 
 	public Filme NovoFilme(FilmeDTO filmeDto)
@@ -70,7 +69,7 @@ public class FilmesService(
 
 		if (existe)
 			throw new AlreadyExistsException(
-				"Uma entidade Filme com título e data de lançamento iguais ao fornecido já existe."
+				"Uma entidade Filme com título e data de lançamento iguais aos fornecidos já existe."
 			);
 
 		var diretor = _diretorService.GetExistenteOuCriar(filmeDto.Diretor);
@@ -85,7 +84,11 @@ public class FilmesService(
 
 	public FilmeDTO ModificarFilme(int id, FilmePatchDTO patchDto)
 	{
-		var filme = _masterContext.Filme.First(filme => filme.Id == id);
+		var filme = _masterContext
+			.Filme.Include(filme => filme.FilmesGeneros)
+			.ThenInclude(fg => fg.Genero)
+			.Include(filme => filme.Diretor)
+			.First(filme => filme.Id == id);
 
 		if (patchDto.Titulo is not null)
 			filme.Titulo = patchDto.Titulo;
@@ -141,7 +144,7 @@ public class FilmesService(
 		}
 
 		_masterContext.SaveChanges();
-		return Mapper.Map<Filme, FilmeDTO>(filme); // Não há necessidade de modificar o diretor, então retorna
+		return Mapper.Map<Filme, FilmeDTO>(filme);
 	}
 
 	public void DeletarFilme(int id)
