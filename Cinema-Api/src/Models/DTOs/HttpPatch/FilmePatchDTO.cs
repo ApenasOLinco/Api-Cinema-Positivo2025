@@ -20,4 +20,13 @@ public class FilmePatchDTO
 	public List<string>? Generos { get; set; }
 
 	public DiretorDTO? Diretor { get; set; }
+
+	/// <summary>
+	/// Se verdadeiro, indica que o atributo Diretor é uma
+	/// pessoa diferente do Diretor presente no banco de dados.
+	/// <br/>
+	/// Se falso, indica que o atributo Diretor se refere
+	/// ao diretor já existente.
+	/// </summary>
+	public bool? IsNovoDiretor { get; set; }
 }

@@ -18,7 +18,7 @@ public class DiretorService(MasterContext masterContext)
 				"Uma entidade Diretor com Nome e Data de Nascimento iguais ao fornecido já existe."
 			);
 
-		Diretor novoDiretor = CriarDiretor(diretor);
+		Diretor novoDiretor = CriarDiretorSemVerificar(diretor);
 		return novoDiretor;
 	}
 
@@ -26,12 +26,12 @@ public class DiretorService(MasterContext masterContext)
 	{
 		var diretor = SingleByNomeAndDataNascimento(dto.Nome, dto.DataNasc);
 
-		diretor ??= CriarDiretor(dto); // Se for nulo, cria um novo
+		diretor ??= CriarDiretorSemVerificar(dto); // Se for nulo, cria um novo
 
 		return diretor;
 	}
 
-	private Diretor? SingleByNomeAndDataNascimento(string nome, DateOnly dataNasc)
+	public Diretor? SingleByNomeAndDataNascimento(string nome, DateOnly dataNasc)
 	{
 		return _masterContext
 			.Diretor.AsEnumerable()
@@ -41,7 +41,7 @@ public class DiretorService(MasterContext masterContext)
 			);
 	}
 
-	private Diretor CriarDiretor(DiretorDTO diretor)
+	private Diretor CriarDiretorSemVerificar(DiretorDTO diretor)
 	{
 		var novoDiretor = new Diretor
 		{

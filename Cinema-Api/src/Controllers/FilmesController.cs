@@ -1,5 +1,6 @@
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
+using Cinema_Api.src.Models.DTOs.HttpPatch;
 using Cinema_Api.src.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,7 +42,12 @@ public class FilmesController(FilmesService service) : ControllerBase
 	}
 
 	[HttpPatch("{id}")]
-	public ActionResult<FilmeDTO> 
+	public ActionResult<FilmeDTO> ModificarFilme(int id, FilmePatchDTO patchDTO)
+	{
+		var modificado = FilmesService.ModificarFilme(id, patchDTO);
+
+		return Ok(modificado);
+	}
 
 	[HttpDelete("{id}")]
 	public ActionResult DeletarFilme([FromRoute(Name = "id")] int id)
