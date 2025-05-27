@@ -1,8 +1,10 @@
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
+using Cinema_Api.src.Models.DTOs.Filter;
 using Cinema_Api.src.Models.DTOs.HttpPatch;
 using Cinema_Api.src.Service;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior;
 
 namespace Cinema_Api.src.Controllers;
 
@@ -26,6 +28,16 @@ public class FilmesController(FilmesService service) : ControllerBase
 		var filme = FilmesService.UmFilme(id);
 
 		return filme is null ? NotFound() : Ok(filme);
+	}
+
+	[HttpGet("Filtrar")]
+	public ActionResult<List<FilmeDTO>> Filtrar(
+		[FromBody(EmptyBodyBehavior = Disallow)] FilmeFilterDTO filtro
+	)
+	{
+		var filmes = FilmesService.Filtrar(filtro);
+
+		return Ok(filmes);
 	}
 
 	[HttpPost]

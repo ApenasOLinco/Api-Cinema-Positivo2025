@@ -1,8 +1,10 @@
+using System.Collections.Specialized;
 using AutoMapper;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
+using Cinema_Api.src.Models.DTOs.Filter;
 using Cinema_Api.src.Models.DTOs.HttpPatch;
 using Cinema_Api.src.Models.Mapper;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +51,54 @@ public class FilmesService(
 		return filme is null
 			? throw new EntityNotFoundException($"Uma entidade Filme de Id {id} não existe.")
 			: Mapper.Map<Filme, FilmeDTO>(filme);
+	}
+
+	public List<FilmeDTO> Filtrar(FilmeFilterDTO filtro)
+	{
+		var filmes = _masterContext
+			.Filme.Include(f => f.FilmesGeneros)
+			.ThenInclude(fg => fg.Genero)
+			.Include(f => f.Diretor)
+			.AsEnumerable()
+			.Select(f => Mapper.Map<Filme, FilmeDTO>(f));
+
+		if (filtro.Titulo is not null)
+		{
+			filmes = filmes.Where(f =>
+				f.Titulo.Contains(filtro.Titulo, StringComparison.OrdinalIgnoreCase)
+			);
+		}
+
+		if (filtro.AnoLancamento is not null)
+		{
+			filmes = filmes.Where(f => f.AnoLancamento == filtro.AnoLancamento);
+		}
+
+		if (filtro.Sinopse is not null)
+		{
+			filmes = filmes.Where(f =>
+				f.Sinopse.Contains(filtro.Sinopse, StringComparison.OrdinalIgnoreCase)
+			);
+		}
+
+		if (filtro.Generos is not null && filtro.Generos.Count > 0)
+		{
+			foreach (var genero in filtro.Generos)
+			{
+				filmes = filmes.Where(f =>
+					f.Generos.Any(g => g.Equals(genero, StringComparison.OrdinalIgnoreCase))
+				);
+			}
+		}
+
+		if (filtro.Diretor is not null)
+		{
+			filmes = filmes.Where(f =>
+				f.Diretor.Nome.Equals(filtro.Diretor, StringComparison.OrdinalIgnoreCase)
+			);
+		}
+
+		return [.. filmes];
 	}
 
 	public Filme NovoFilme(FilmeDTO filmeDto)
