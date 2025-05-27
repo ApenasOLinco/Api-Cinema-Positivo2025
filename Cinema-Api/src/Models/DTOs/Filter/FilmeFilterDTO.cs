@@ -8,7 +8,7 @@ public class FilmeFilterDTO
 
 	public string? Sinopse { get; set; }
 
-	public List<Genero>? Generos { get; set; }
+	public List<string>? Generos { get; set; }
 
-	public Diretor? Diretor { get; set; }
+	public string? Diretor { get; set; }
 }
