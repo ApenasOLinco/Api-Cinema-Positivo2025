@@ -2,6 +2,8 @@ namespace Cinema_Api.src.Models.DTOs;
 
 public class FilmeDTO
 {
+	public required int Id { get; set; }
+
 	public required string Titulo { get; set; }
 
 	public required int AnoLancamento { get; set; }
