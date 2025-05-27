@@ -1,5 +1,6 @@
 using AutoMapper;
 using Cinema_Api.src.Models.DTOs;
+using Cinema_Api.src.Models.DTOs.Post;
 
 namespace Cinema_Api.src.Models.Mapper;
 
@@ -9,7 +10,7 @@ public class AutoMapperConfig
 	{
 		cfg.CreateMap<Diretor, DiretorDTO>();
 		cfg.CreateMap<DiretorDTO, Diretor>();
-		cfg.CreateMap<FilmeDTO, Filme>();
+		cfg.CreateMap<FilmePostDTO, Filme>();
 		ConfigurarFilmeParaDTO(cfg);
 	}
 

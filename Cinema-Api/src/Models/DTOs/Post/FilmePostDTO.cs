@@ -1,9 +1,7 @@
-namespace Cinema_Api.src.Models.DTOs;
+namespace Cinema_Api.src.Models.DTOs.Post;
 
-public class FilmeDTO
+public class FilmePostDTO
 {
-	public required int? Id { get; set; }
-
 	public required string Titulo { get; set; }
 
 	public required int AnoLancamento { get; set; }

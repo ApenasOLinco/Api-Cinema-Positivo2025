@@ -2,6 +2,7 @@ using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.DTOs.Filter;
 using Cinema_Api.src.Models.DTOs.HttpPatch;
+using Cinema_Api.src.Models.DTOs.Post;
 using Cinema_Api.src.Service;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior;
@@ -41,7 +42,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 	}
 
 	[HttpPost]
-	public ActionResult<FilmeDTO> NovoFilme([FromBody] FilmeDTO filme)
+	public ActionResult<FilmeDTO> NovoFilme([FromBody] FilmePostDTO filme)
 	{
 		var filmeCriado = FilmesService.NovoFilme(filme);
 

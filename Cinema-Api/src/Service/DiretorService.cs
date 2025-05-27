@@ -11,7 +11,7 @@ public class DiretorService(MasterContext masterContext)
 
 	public Diretor NovoDiretor(DiretorDTO diretor)
 	{
-		var existe = SingleByNomeAndDataNascimento(diretor.Nome, diretor.DataNasc) is not null;
+		var existe = SingleByNomeAndDataNasc(diretor.Nome, diretor.DataNasc) is not null;
 
 		if (existe)
 			throw new AlreadyExistsException(
@@ -24,14 +24,14 @@ public class DiretorService(MasterContext masterContext)
 
 	public Diretor GetExistenteOuCriar(DiretorDTO dto)
 	{
-		var diretor = SingleByNomeAndDataNascimento(dto.Nome, dto.DataNasc);
+		var diretor = SingleByNomeAndDataNasc(dto.Nome, dto.DataNasc);
 
 		diretor ??= CriarDiretorSemVerificar(dto); // Se for nulo, cria um novo
 
 		return diretor;
 	}
 
-	public Diretor? SingleByNomeAndDataNascimento(string nome, DateOnly dataNasc)
+	public Diretor? SingleByNomeAndDataNasc(string nome, DateOnly dataNasc)
 	{
 		return _masterContext
 			.Diretor.AsEnumerable()
@@ -40,6 +40,8 @@ public class DiretorService(MasterContext masterContext)
 				&& d.DataNasc.Equals(dataNasc)
 			);
 	}
+
+	#region Métodos Privados
 
 	private Diretor CriarDiretorSemVerificar(DiretorDTO diretor)
 	{
@@ -54,4 +56,6 @@ public class DiretorService(MasterContext masterContext)
 		_masterContext.SaveChanges();
 		return novoDiretor;
 	}
+
+	#endregion
 }
