@@ -6,11 +6,13 @@ namespace Cinema_Api.src.Models;
 [PrimaryKey("FilmeId", "AtorId")]
 public class FilmeAtor
 {
-	public int FilmeId { get; set; }
+	public required int FilmeId { get; set; }
 
-	public Filme Filme { get; set; } = null!;
+	public required Filme Filme { get; set; }
 
-	public int AtorId { get; set; }
+	public required int AtorId { get; set; }
 
-	public Ator Ator { get; set; } = null!;
+	public required Ator Ator { get; set; }
+
+	public required string Papel;
 }
