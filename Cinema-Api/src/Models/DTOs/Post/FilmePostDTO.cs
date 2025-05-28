@@ -4,7 +4,7 @@ namespace Cinema_Api.src.Models.DTOs.Post;
 
 public class FilmePostDTO
 {
-	public required String Titulo  { get; set; }
+	public required string Titulo  { get; set; }
 
 	public required int AnoLancamento { get; set; }
 
