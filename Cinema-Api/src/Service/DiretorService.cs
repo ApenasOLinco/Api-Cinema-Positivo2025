@@ -1,7 +1,7 @@
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
-using Cinema_Api.src.Models.DTOs;
+using Cinema_Api.src.Models.DTOs.Get;
 
 namespace Cinema_Api.src.Service;
 
@@ -9,7 +9,7 @@ public class DiretorService(MasterContext masterContext)
 {
 	private readonly MasterContext _masterContext = masterContext;
 
-	public Diretor NovoDiretor(DiretorDTO diretor)
+	public Diretor NovoDiretor(DiretorGetDTO diretor)
 	{
 		var existe = SingleByNomeAndDataNasc(diretor.Nome, diretor.DataNasc) is not null;
 
@@ -22,7 +22,7 @@ public class DiretorService(MasterContext masterContext)
 		return novoDiretor;
 	}
 
-	public Diretor GetExistenteOuCriar(DiretorDTO dto)
+	public Diretor GetExistenteOuCriar(DiretorGetDTO dto)
 	{
 		var diretor = SingleByNomeAndDataNasc(dto.Nome, dto.DataNasc);
 
@@ -43,7 +43,7 @@ public class DiretorService(MasterContext masterContext)
 
 	#region Métodos Privados
 
-	private Diretor CriarDiretorSemVerificar(DiretorDTO diretor)
+	private Diretor CriarDiretorSemVerificar(DiretorGetDTO diretor)
 	{
 		var novoDiretor = new Diretor
 		{

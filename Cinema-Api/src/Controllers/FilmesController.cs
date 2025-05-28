@@ -1,7 +1,5 @@
-using System.Net;
-using Cinema_Api.src.Models;
-using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.DTOs.Filter;
+using Cinema_Api.src.Models.DTOs.Get;
 using Cinema_Api.src.Models.DTOs.HttpPatch;
 using Cinema_Api.src.Models.DTOs.Post;
 using Cinema_Api.src.Service;
@@ -17,7 +15,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 	private FilmesService FilmesService { get; } = service;
 
 	[HttpGet]
-	public ActionResult<List<FilmeDTO>> TodosOsFilmes()
+	public ActionResult<List<FilmeGetDTO>> TodosOsFilmes()
 	{
 		var filmes = FilmesService.TodosOsFilmes();
 
@@ -25,7 +23,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 	}
 
 	[HttpGet("{id}")]
-	public ActionResult<FilmeDTO> UmFilme([FromRoute(Name = "id")] int id)
+	public ActionResult<FilmeGetDTO> UmFilme([FromRoute(Name = "id")] int id)
 	{
 		var filme = FilmesService.UmFilme(id);
 
@@ -33,7 +31,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 	}
 
 	[HttpGet("Filtrar")]
-	public ActionResult<List<FilmeDTO>> Filtrar(
+	public ActionResult<List<FilmeGetDTO>> Filtrar(
 		[FromBody(EmptyBodyBehavior = Disallow)] FilmeFilterDTO filtro
 	)
 	{
@@ -43,7 +41,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 	}
 
 	[HttpPost]
-	public ActionResult<FilmeDTO> NovoFilme([FromBody] FilmePostDTO filme)
+	public ActionResult<FilmeGetDTO> NovoFilme([FromBody] FilmePostDTO filme)
 	{
 		var filmeCriado = FilmesService.NovoFilme(filme);
 
@@ -56,7 +54,7 @@ public class FilmesController(FilmesService service) : ControllerBase
 	}
 
 	[HttpPatch("{id}")]
-	public ActionResult<FilmeDTO> ModificarFilme(int id, FilmePatchDTO patchDTO)
+	public ActionResult<FilmeGetDTO> ModificarFilme(int id, FilmePatchDTO patchDTO)
 	{
 		var modificado = FilmesService.ModificarFilme(id, patchDTO);
 

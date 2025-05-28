@@ -1,6 +1,6 @@
-namespace Cinema_Api.src.Models.DTOs;
+namespace Cinema_Api.src.Models.DTOs.Get;
 
-public class FilmeDTO
+public class FilmeGetDTO
 {
 	public required int? Id { get; set; }
 
@@ -14,5 +14,5 @@ public class FilmeDTO
 
 	public required List<string> Generos { get; set; }
 
-	public required DiretorDTO Diretor { get; set; }
+	public required DiretorGetDTO Diretor { get; set; }
 }
