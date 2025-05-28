@@ -1,5 +1,5 @@
-using System.Collections.Specialized;
 using AutoMapper;
+using Cinema_Api.src.Config.Mapper;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
@@ -7,8 +7,6 @@ using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.DTOs.Filter;
 using Cinema_Api.src.Models.DTOs.HttpPatch;
 using Cinema_Api.src.Models.DTOs.Post;
-using Cinema_Api.src.Models.Mapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;

@@ -1,5 +1,3 @@
-using System.Net;
-using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.DTOs.Filter;
 using Cinema_Api.src.Models.DTOs.HttpPatch;

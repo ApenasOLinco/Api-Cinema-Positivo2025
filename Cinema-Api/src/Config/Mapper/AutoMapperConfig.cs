@@ -1,8 +1,9 @@
 using AutoMapper;
+using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.DTOs.Post;
 
-namespace Cinema_Api.src.Models.Mapper;
+namespace Cinema_Api.src.Config.Mapper;
 
 public class AutoMapperConfig
 {
