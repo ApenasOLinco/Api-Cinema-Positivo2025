@@ -31,6 +31,16 @@ public class DiretorService(MasterContext masterContext)
 		return diretor;
 	}
 
+	public void DeletarDiretor(int Id)
+	{
+		var diretor =
+		_masterContext.Diretor.FirstOrDefault(d => d.Id == Id)
+		?? throw new EntityNotFoundException($"Uma entidade Filme de id {Id} não existe.");
+
+		_masterContext.Diretor.Remove(_masterContext.Diretor.First(d => d.Id == Id));
+		_masterContext.SaveChanges();
+	}
+
 	public Diretor? SingleByNomeAndDataNasc(string nome, DateOnly dataNasc)
 	{
 		return _masterContext
