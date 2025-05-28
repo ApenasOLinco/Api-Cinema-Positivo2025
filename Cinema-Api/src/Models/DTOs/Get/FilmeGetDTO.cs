@@ -2,7 +2,7 @@ namespace Cinema_Api.src.Models.DTOs.Get;
 
 public class FilmeGetDTO
 {
-	public required int? Id { get; set; }
+	public required int Id { get; set; }
 
 	public required string Titulo { get; set; }
 
