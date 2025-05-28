@@ -17,7 +17,7 @@ public class MasterContext : DbContext
 
 	public DbSet<FilmeGenero> FilmeGenero { get; set; }
 
-	// public DbSet<FilmeAtor> FilmeAtor { get; set; }
+	public DbSet<FilmeAtor> FilmeAtor { get; set; }
 
 	public MasterContext(DbContextOptions options)
 		: base(options) { }
