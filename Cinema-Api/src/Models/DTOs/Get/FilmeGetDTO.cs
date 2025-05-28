@@ -15,4 +15,6 @@ public class FilmeGetDTO
 	public required List<string> Generos { get; set; }
 
 	public required DiretorGetDTO Diretor { get; set; }
+
+	public required List<PapelAtor> Atores { get; set; }
 }
