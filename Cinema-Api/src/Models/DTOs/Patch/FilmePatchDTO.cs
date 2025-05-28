@@ -1,3 +1,5 @@
+using Cinema_Api.src.Models.DTOs.Get;
+
 namespace Cinema_Api.src.Models.DTOs.HttpPatch;
 
 /// <summary>
@@ -19,7 +21,7 @@ public class FilmePatchDTO
 
 	public List<string>? Generos { get; set; }
 
-	public DiretorDTO? Diretor { get; set; }
+	public DiretorGetDTO? Diretor { get; set; }
 
 	/// <summary>
 	/// Se verdadeiro, indica que o atributo Diretor é uma

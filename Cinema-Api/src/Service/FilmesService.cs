@@ -3,8 +3,8 @@ using Cinema_Api.src.Config.Mapper;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
-using Cinema_Api.src.Models.DTOs;
 using Cinema_Api.src.Models.DTOs.Filter;
+using Cinema_Api.src.Models.DTOs.Get;
 using Cinema_Api.src.Models.DTOs.HttpPatch;
 using Cinema_Api.src.Models.DTOs.Post;
 using Microsoft.EntityFrameworkCore;
@@ -26,19 +26,19 @@ public class FilmesService(
 	// Ferramenta que transforma objetos de um tipo para objetos de outro
 	private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
 
-	public List<FilmeDTO> TodosOsFilmes()
+	public List<FilmeGetDTO> TodosOsFilmes()
 	{
 		var filmes = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
 			.ThenInclude(fg => fg.Genero)
 			.Include(f => f.Diretor)
-			.Select(f => Mapper.Map<Filme, FilmeDTO>(f))
+			.Select(f => Mapper.Map<Filme, FilmeGetDTO>(f))
 			.ToList();
 
 		return filmes;
 	}
 
-	public FilmeDTO UmFilme(int id)
+	public FilmeGetDTO UmFilme(int id)
 	{
 		var filme = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
@@ -49,17 +49,17 @@ public class FilmesService(
 
 		return filme is null
 			? throw new EntityNotFoundException($"Uma entidade Filme de Id {id} não existe.")
-			: Mapper.Map<Filme, FilmeDTO>(filme);
+			: Mapper.Map<Filme, FilmeGetDTO>(filme);
 	}
 
-	public List<FilmeDTO> Filtrar(FilmeFilterDTO filtro)
+	public List<FilmeGetDTO> Filtrar(FilmeFilterDTO filtro)
 	{
 		var filmes = _masterContext
 			.Filme.Include(f => f.FilmesGeneros)
 			.ThenInclude(fg => fg.Genero)
 			.Include(f => f.Diretor)
 			.AsEnumerable()
-			.Select(f => Mapper.Map<Filme, FilmeDTO>(f));
+			.Select(f => Mapper.Map<Filme, FilmeGetDTO>(f));
 
 		if (filtro.Titulo is not null)
 		{
@@ -125,7 +125,7 @@ public class FilmesService(
 		return adicionados;
 	}
 
-	public FilmeDTO ModificarFilme(int id, FilmePatchDTO patchDto)
+	public FilmeGetDTO ModificarFilme(int id, FilmePatchDTO patchDto)
 	{
 		var filme = _masterContext
 			.Filme.Include(filme => filme.FilmesGeneros)
@@ -157,7 +157,7 @@ public class FilmesService(
 		if (patchDto.Diretor is null)
 		{
 			_masterContext.SaveChanges();
-			return Mapper.Map<Filme, FilmeDTO>(filme); // Não há necessidade de modificar o diretor, então retorna
+			return Mapper.Map<Filme, FilmeGetDTO>(filme); // Não há necessidade de modificar o diretor, então retorna
 		}
 
 		if (patchDto.IsNovoDiretor is null) // Diretor foi fornecido, então IsNovoDiretor deve ser fornecido também
@@ -187,7 +187,7 @@ public class FilmesService(
 		}
 
 		_masterContext.SaveChanges();
-		return Mapper.Map<Filme, FilmeDTO>(filme);
+		return Mapper.Map<Filme, FilmeGetDTO>(filme);
 	}
 
 	public void DeletarFilme(int id)
