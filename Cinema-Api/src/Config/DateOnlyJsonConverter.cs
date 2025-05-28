@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+namespace Cinema_Api.src.Config;
+
 public class DateOnlyJsonConverter : JsonConverter<DateOnly>
 {
 	private const string Format = "dd-MM-yyyy";
