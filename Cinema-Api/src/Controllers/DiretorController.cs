@@ -12,14 +12,33 @@ namespace Cinema_Api.src.Controllers;
 [Route("api/v1/[controller]")]
 public class DiretorController(DiretorService service) : ControllerBase
 {
-	private DiretorService DiretorService { get; } = service;
+    private DiretorService DiretorService { get; } = service;
 
-	[HttpDelete("{Id}")]
-    
-	public ActionResult<List<DiretorGetDTO>> DeletarDiretor(int Id)
-	{
+    [HttpDelete("{Id}")]
+
+    public ActionResult<List<DiretorGetDTO>> DeletarDiretor(int Id)
+    {
         DiretorService.DeletarDiretor(Id);
 
         return NoContent();
+    }
+    [HttpGet("{Id}")]
+	public ActionResult<DiretorGetDTO> UmDiretor([FromRoute(Name = "id")] int Id)
+	{
+		var filme = DiretorService.UmDiretor(Id);
+
+		return filme is null ? NotFound() : Ok(filme);
 	}
+    [HttpPost]
+    public ActionResult<DiretorGetDTO> NovoDiretor([FromBody] DiretorPostDTO diretor)
+    {
+        var diretorCriado = DiretorService.NovoDiretor(diretor);
+
+        if (diretorCriado is null)
+        {
+            return Conflict("O filme já existe no banco de dados.");
+        }
+
+        return CreatedAtAction(nameof(UmDiretor), new { id = diretorCriado.Id }, diretor);
+    }
 }
