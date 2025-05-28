@@ -31,7 +31,7 @@ public class AutoMapperConfig
 					opt.MapFrom(src =>
 						src.FilmesAtores.Select(fa => new Papel
 							{
-								Ator = new(fa.Ator.Nome, fa.Ator.DataNascimento),
+								Ator = new(fa.Ator.Nome, fa.Ator.DataNasc),
 								AtorPapel = fa.Papel,
 							})
 							.ToList()
