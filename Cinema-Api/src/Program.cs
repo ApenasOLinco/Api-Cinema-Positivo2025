@@ -1,3 +1,4 @@
+using Cinema_Api.src.Config;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Service;
 using Microsoft.EntityFrameworkCore;
