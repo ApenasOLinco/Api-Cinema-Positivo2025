@@ -12,8 +12,6 @@ public class ROTA_DELETE
 
     public static void MapGetRoutes(WebApplication app)
     {
-        app.MapGet("/", () => Redirect("/swagger"));
-
         MapearGeneros(app);
         MapearDiretores(app);
         MapearAtores(app);
