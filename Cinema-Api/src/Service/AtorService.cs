@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
 
-public class AtorServices(
+public class AtorService(
     MasterContext masterContext
 )
 {
@@ -19,4 +19,16 @@ public class AtorServices(
 
     private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
     
+    public AtorGetDTO UmAtor(int Id)
+	{
+		var ator = _masterContext
+			.Ator.Include(a => a.Nome)
+			.Include(a => a.DataNasc)
+			.Where(a => a.Id == Id)
+			.FirstOrDefault();
+
+		return ator is null
+			? throw new EntityNotFoundException($"Uma entidade Ator de Id {Id} não existe.")
+			: Mapper.Map<Diretor, DiretorGetDTO>(ator);
+	}
 }
