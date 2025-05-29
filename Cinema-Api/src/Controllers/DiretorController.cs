@@ -14,13 +14,25 @@ public class DiretorController(DiretorService service) : ControllerBase
 {
     private DiretorService DiretorService { get; } = service;
 
-[HttpGet("{id}")]
-public ActionResult<DiretorGetDTO> UmDiretor([FromRoute(Name = "Id")] int Id)
-{
-    var diretor = DiretorService.UmDiretor(Id);
+    [HttpGet("{id}")]
+    public ActionResult<DiretorGetDTO> UmDiretor([FromRoute(Name = "Id")] int Id)
+    {
+        var diretor = DiretorService.UmDiretor(Id);
 
-    return diretor is null ? NotFound() : Ok(diretor);
-}
+        return diretor is null ? NotFound() : Ok(diretor);
+    }
+    [HttpPost]
+    public ActionResult<DiretorGetDTO> NovoDiretor([FromBody] DiretorPostDTO diretor)
+    {
+        var diretorCriado = DiretorService.NovoDiretor(diretor);
+
+        if (diretorCriado is null)
+        {
+            return Conflict("O Diretor já existe no banco de dados.");
+        }
+
+        return CreatedAtAction(nameof(UmDiretor), new { id = diretorCriado.Id }, diretor);
+    }
 
     [HttpDelete("{Id}")]
     public ActionResult<List<DiretorGetDTO>> DeletarDiretor(int Id)

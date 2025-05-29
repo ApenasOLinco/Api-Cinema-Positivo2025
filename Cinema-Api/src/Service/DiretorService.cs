@@ -4,6 +4,7 @@ using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs.Get;
+using Cinema_Api.src.Models.DTOs.Post;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
@@ -37,6 +38,27 @@ public class DiretorService(MasterContext masterContext)
 		return diretor is null
 			? throw new EntityNotFoundException($"Uma entidade Diretor de Id {Id} não existe.")
 			: Mapper.Map<Diretor, DiretorGetDTO>(diretor);
+	}
+	public Diretor NovoDiretor(DiretorPostDTO diretorDto)
+	{
+		var existe = _masterContext
+			.Diretor.AsEnumerable()
+			.Where(filmeBd =>
+				filmeBd.Nome.Equals(diretorDto.Nome, StringComparison.OrdinalIgnoreCase)
+				&& filmeBd.DataNasc == diretorDto.DataNasc
+			)
+			.Any();
+
+		if (existe)
+			throw new AlreadyExistsException(
+				"Um Filme com título e data de lançamento iguais aos fornecidos já existe."
+			);
+
+		var diretor = Mapper.Map<DiretorPostDTO, Diretor>(diretorDto);
+
+		_masterContext.SaveChanges();
+		
+		return diretor;
 	}
 	public List<DiretorGetDTO> TodosOsDiretores()
 	{
