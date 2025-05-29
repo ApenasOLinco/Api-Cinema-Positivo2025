@@ -33,4 +33,11 @@ public class AtorController(AtorService service) : ControllerBase
 
         return CreatedAtAction(nameof(UmAtor), new { id = atorCriado.Id }, ator);
     }
+    [HttpDelete("{Id}")]
+    public ActionResult<List<AtorGetDTO>> DeletarAtor(int Id)
+    {
+        AtorService.DeletarAtor(Id);
+
+        return NoContent();
+    }
 }

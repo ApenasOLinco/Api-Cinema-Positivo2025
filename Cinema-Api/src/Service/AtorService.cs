@@ -18,28 +18,28 @@ public class AtorService(
     private readonly MasterContext _masterContext = masterContext;
 
     private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
-    
+
     public Ator NovoAtor(AtorPostDTO atorDto)
-	{
-		var existe = _masterContext
-			.Ator.AsEnumerable()
-			.Where(filmeBd =>
-				filmeBd.Nome.Equals(atorDto.Nome, StringComparison.OrdinalIgnoreCase)
-				&& filmeBd.DataNasc == atorDto.DataNasc
-			)
-			.Any();
+    {
+        var existe = _masterContext
+            .Ator.AsEnumerable()
+            .Where(filmeBd =>
+                filmeBd.Nome.Equals(atorDto.Nome, StringComparison.OrdinalIgnoreCase)
+                && filmeBd.DataNasc == atorDto.DataNasc
+            )
+            .Any();
 
-		if (existe)
-			throw new AlreadyExistsException(
-				"Um Ator com nome e data de Nascimento iguais aos fornecidos já existe."
-			);
+        if (existe)
+            throw new AlreadyExistsException(
+                "Um Ator com nome e data de Nascimento iguais aos fornecidos já existe."
+            );
 
-		var ator = Mapper.Map<AtorPostDTO, Ator>(atorDto);
+        var ator = Mapper.Map<AtorPostDTO, Ator>(atorDto);
 
-		_masterContext.SaveChanges();
-		
-		return ator;
-	}
+        _masterContext.SaveChanges();
+
+        return ator;
+    }
     public AtorGetDTO UmAtor(int Id)
     {
         var ator = _masterContext
@@ -50,6 +50,15 @@ public class AtorService(
 
         return ator is null
             ? throw new EntityNotFoundException($"Uma entidade Ator de Id {Id} não existe.")
-            : Mapper.Map<Diretor, DiretorGetDTO>(ator);
+            : Mapper.Map<Ator, AtorGetDTO>(ator);
+    }
+    public void DeletarAtor(int Id)
+    {	
+        var ator =
+        _masterContext.Ator.FirstOrDefault(a => a.Id == Id)
+        ?? throw new EntityNotFoundException($"Uma entidade Ator de id {Id} não existe.");
+
+        _masterContext.Ator.Remove(_masterContext.Ator.First(a => a.Id == Id));
+        _masterContext.SaveChanges();
     }
 }
