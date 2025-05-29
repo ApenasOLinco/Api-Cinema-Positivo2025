@@ -26,6 +26,18 @@ public class DiretorService(MasterContext masterContext)
 		Diretor novoDiretor = CriarDiretorSemVerificar(diretor);
 		return novoDiretor;
 	}
+	public DiretorGetDTO UmDiretor(int Id)
+	{
+		var diretor = _masterContext
+			.Diretor.Include(d => d.DataNasc)
+			.Include(d => d.Nome)
+			.Where(d => d.Id == Id)
+			.FirstOrDefault();
+
+		return diretor is null
+			? throw new EntityNotFoundException($"Uma entidade Diretor de Id {Id} não existe.")
+			: Mapper.Map<Diretor, DiretorGetDTO>(diretor);
+	}
 	public List<DiretorGetDTO> TodosOsDiretores()
 	{
 		var diretores = _masterContext

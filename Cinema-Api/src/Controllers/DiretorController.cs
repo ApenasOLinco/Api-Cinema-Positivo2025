@@ -14,6 +14,14 @@ public class DiretorController(DiretorService service) : ControllerBase
 {
     private DiretorService DiretorService { get; } = service;
 
+[HttpGet("{id}")]
+public ActionResult<DiretorGetDTO> UmDiretor([FromRoute(Name = "Id")] int Id)
+{
+    var diretor = DiretorService.UmDiretor(Id);
+
+    return diretor is null ? NotFound() : Ok(diretor);
+}
+
     [HttpDelete("{Id}")]
     public ActionResult<List<DiretorGetDTO>> DeletarDiretor(int Id)
     {
