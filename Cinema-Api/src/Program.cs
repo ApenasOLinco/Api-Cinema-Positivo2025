@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
-builder.Services.AddScoped<FilmesService>();
+builder.Services.AddScoped<FilmeService>();
 builder.Services.AddScoped<GeneroService>();
 builder.Services.AddScoped<DiretorService>();
 
