@@ -15,6 +15,11 @@ public class AutoMapperConfig
 		cfg.CreateMap<DiretorGetDTO, Diretor>();
 		cfg.CreateMap<DiretorPostDTO, Diretor>();
 
+		// Ator
+		cfg.CreateMap<Ator, AtorGetDTO>();
+		cfg.CreateMap<AtorGetDTO, Ator>();
+		cfg.CreateMap<AtorPostDTO, Ator>();
+
 		// Filme
 		cfg.CreateMap<FilmePostDTO, Filme>();
 		ConfigurarFilmeParaDTO(cfg);
