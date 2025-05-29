@@ -164,10 +164,6 @@ public class FilmeService(
 
 	public void DeletarFilme(int id)
 	{
-		var filme =
-			_masterContext.Filme.FirstOrDefault(f => f.Id == id)
-			?? throw new EntityNotFoundException($"Uma entidade Filme de id {id} não existe.");
-
 		_masterContext.Filme.Remove(_masterContext.Filme.First(f => f.Id == id));
 		_masterContext.SaveChanges();
 	}

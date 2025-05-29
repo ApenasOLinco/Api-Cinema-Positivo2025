@@ -27,6 +27,7 @@ public class DiretorService(MasterContext masterContext)
 		Diretor novoDiretor = CriarDiretorSemVerificar(diretor);
 		return novoDiretor;
 	}
+
 	public DiretorGetDTO UmDiretor(int Id)
 	{
 		var diretor = _masterContext
@@ -39,13 +40,14 @@ public class DiretorService(MasterContext masterContext)
 			? throw new EntityNotFoundException($"Uma entidade Diretor de Id {Id} não existe.")
 			: Mapper.Map<Diretor, DiretorGetDTO>(diretor);
 	}
+
 	public Diretor NovoDiretor(DiretorPostDTO diretorDto)
 	{
 		var existe = _masterContext
 			.Diretor.AsEnumerable()
-			.Where(filmeBd =>
-				filmeBd.Nome.Equals(diretorDto.Nome, StringComparison.OrdinalIgnoreCase)
-				&& filmeBd.DataNasc == diretorDto.DataNasc
+			.Where(diretorBd =>
+				diretorBd.Nome.Equals(diretorDto.Nome, StringComparison.OrdinalIgnoreCase)
+				&& diretorBd.DataNasc == diretorDto.DataNasc
 			)
 			.Any();
 
@@ -56,26 +58,27 @@ public class DiretorService(MasterContext masterContext)
 
 		var diretor = Mapper.Map<DiretorPostDTO, Diretor>(diretorDto);
 
+		_masterContext.Diretor.Add(diretor);
+
 		_masterContext.SaveChanges();
-		
+
 		return diretor;
 	}
+
 	public List<DiretorGetDTO> TodosOsDiretores()
 	{
 		var diretores = _masterContext
-			.Diretor.Include(d => d.DataNasc)
-			.Include(d => d.Nome)
-			.Include(d => d.Biografia)
-			.Select(d => Mapper.Map<Diretor, DiretorGetDTO>(d))
+			.Diretor.Select(d => Mapper.Map<Diretor, DiretorGetDTO>(d))
 			.ToList();
 
 		return diretores;
 	}
+
 	public void DeletarDiretor(int Id)
-	{	
+	{
 		var diretor =
-		_masterContext.Diretor.FirstOrDefault(d => d.Id == Id)
-		?? throw new EntityNotFoundException($"Uma entidade Diretor de id {Id} não existe.");
+			_masterContext.Diretor.FirstOrDefault(d => d.Id == Id)
+			?? throw new EntityNotFoundException($"Uma entidade Diretor de id {Id} não existe.");
 
 		_masterContext.Diretor.Remove(_masterContext.Diretor.First(d => d.Id == Id));
 		_masterContext.SaveChanges();

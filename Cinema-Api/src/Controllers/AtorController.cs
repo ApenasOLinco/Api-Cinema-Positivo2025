@@ -34,7 +34,7 @@ public class AtorController(AtorService service) : ControllerBase
 			return Conflict("O Ator já existe no banco de dados.");
 		}
 
-		return CreatedAtAction(nameof(UmAtor), new { id = atorCriado.Id }, ator);
+		return CreatedAtAction(nameof(UmAtor), new { Id = atorCriado.Id }, ator);
 	}
 
 	[HttpDelete("{Id}")]

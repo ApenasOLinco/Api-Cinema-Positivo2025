@@ -37,6 +37,8 @@ public class AtorService(MasterContext masterContext)
 
 		var ator = Mapper.Map<AtorPostDTO, Ator>(atorDto);
 
+		_masterContext.Ator.Add(ator);
+
 		_masterContext.SaveChanges();
 
 		return ator;
@@ -44,11 +46,7 @@ public class AtorService(MasterContext masterContext)
 
 	public AtorGetDTO UmAtor(int Id)
 	{
-		var ator = _masterContext
-			.Ator.Include(a => a.Nome)
-			.Include(a => a.DataNasc)
-			.Where(a => a.Id == Id)
-			.FirstOrDefault();
+		var ator = _masterContext.Ator.Where(a => a.Id == Id).FirstOrDefault();
 
 		return ator is null
 			? throw new EntityNotFoundException($"Uma entidade Ator de Id {Id} não existe.")

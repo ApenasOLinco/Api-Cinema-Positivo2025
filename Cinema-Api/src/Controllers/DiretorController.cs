@@ -12,43 +12,42 @@ namespace Cinema_Api.src.Controllers;
 [Route("api/v1/[controller]")]
 public class DiretorController(DiretorService service) : ControllerBase
 {
-    private DiretorService DiretorService { get; } = service;
+	private DiretorService DiretorService { get; } = service;
 
-    [HttpGet("{id}")]
-    public ActionResult<DiretorGetDTO> UmDiretor([FromRoute(Name = "Id")] int Id)
-    {
-        var diretor = DiretorService.UmDiretor(Id);
+	[HttpGet("{id}")]
+	public ActionResult<DiretorGetDTO> UmDiretor([FromRoute(Name = "Id")] int Id)
+	{
+		var diretor = DiretorService.UmDiretor(Id);
 
-        return diretor is null ? NotFound() : Ok(diretor);
-    }
-    [HttpPost]
-    public ActionResult<DiretorGetDTO> NovoDiretor([FromBody] DiretorPostDTO diretor)
-    {
-        var diretorCriado = DiretorService.NovoDiretor(diretor);
+		return diretor is null ? NotFound() : Ok(diretor);
+	}
 
-        if (diretorCriado is null)
-        {
-            return Conflict("O Diretor já existe no banco de dados.");
-        }
+	[HttpPost]
+	public ActionResult<DiretorGetDTO> NovoDiretor([FromBody] DiretorPostDTO diretor)
+	{
+		var diretorCriado = DiretorService.NovoDiretor(diretor);
 
-        return CreatedAtAction(nameof(UmDiretor), new { id = diretorCriado.Id }, diretor);
-    }
+		if (diretorCriado is null)
+		{
+			return Conflict("O Diretor já existe no banco de dados.");
+		}
 
-    [HttpDelete("{Id}")]
-    public ActionResult<List<DiretorGetDTO>> DeletarDiretor(int Id)
-    {
-        DiretorService.DeletarDiretor(Id);
+		return CreatedAtAction(nameof(UmDiretor), new { Id = diretorCriado.Id }, diretor);
+	}
 
-        return NoContent();
-    }
- 
-    
-    [HttpGet]
+	[HttpDelete("{Id}")]
+	public ActionResult<List<DiretorGetDTO>> DeletarDiretor(int Id)
+	{
+		DiretorService.DeletarDiretor(Id);
+
+		return NoContent();
+	}
+
+	[HttpGet]
 	public ActionResult<List<DiretorGetDTO>> TodosOsDiretores()
 	{
 		var diretores = DiretorService.TodosOsDiretores();
 
 		return Ok(diretores);
 	}
-
 }

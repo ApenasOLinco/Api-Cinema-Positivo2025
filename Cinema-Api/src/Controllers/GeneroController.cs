@@ -12,23 +12,25 @@ namespace Cinema_Api.src.Controllers;
 [Route("api/v1/[controller]")]
 public class GeneroController(GeneroService service) : ControllerBase
 {
-    private GeneroService GeneroService { get; } = service;
+	private GeneroService GeneroService { get; } = service;
 
-    [HttpGet]
-    public ActionResult<List<GeneroGetDTO>> TodosOsGeneros()
-    {
-        var generos = GeneroService.TodosOsGeneros();
+	[HttpGet]
+	public ActionResult<List<GeneroGetDTO>> TodosOsGeneros()
+	{
+		var generos = GeneroService.TodosOsGeneros();
 
-        return Ok(generos);
-    }
-    [HttpGet("{id}")]
-    public ActionResult<GeneroGetDTO> UmGenero([FromRoute(Name = "id")] int id)
-    {
-        var genero = GeneroService.UmGenero(id);
+		return Ok(generos);
+	}
 
-        return genero is null ? NotFound() : Ok(genero);
-    }
-    [HttpPost]
+	[HttpGet("{id}")]
+	public ActionResult<GeneroGetDTO> UmGenero([FromRoute(Name = "id")] int id)
+	{
+		var genero = GeneroService.UmGenero(id);
+
+		return genero is null ? NotFound() : Ok(genero);
+	}
+
+	[HttpPost]
 	public ActionResult<GeneroGetDTO> NovoGenero([FromBody] GeneroPostDTO genero)
 	{
 		var generoCriado = GeneroService.NovoGenero(genero);
@@ -39,5 +41,13 @@ public class GeneroController(GeneroService service) : ControllerBase
 		}
 
 		return CreatedAtAction(nameof(UmGenero), new { id = generoCriado.Id }, genero);
+	}
+
+	[HttpDelete]
+	public ActionResult DeletarGenero(int Id)
+	{
+		GeneroService.DeletarGenero(Id);
+
+		return NoContent();
 	}
 }

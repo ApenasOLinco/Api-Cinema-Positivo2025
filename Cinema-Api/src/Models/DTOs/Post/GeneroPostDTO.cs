@@ -4,5 +4,5 @@ namespace Cinema_Api.src.Models.DTOs.Post;
 
 public class GeneroPostDTO
 {
-    	public required string Nome { get; set; }
+	public required string Nome { get; set; }
 }
