@@ -26,13 +26,7 @@ public class DiretorController(DiretorService service) : ControllerBase
 		return Created();
 	}
 
-	[HttpDelete("{Id}")]
-	public ActionResult<List<DiretorGetDTO>> DeletarDiretor(int Id)
-	{
-		DiretorService.DeletarDiretor(Id);
 
-		return NoContent();
-	}
 
 	[HttpGet]
 	public ActionResult<List<DiretorGetDTO>> TodosOsDiretores()

@@ -25,12 +25,4 @@ public class FilmesController(FilmeService service) : ControllerBase
 		// Trocar por Created(), vazio mesmo
 		return Created();
 	}
-
-	[HttpDelete("{id}")]
-	public ActionResult DeletarFilme([FromRoute(Name = "id")] int id)
-	{
-		FilmesService.DeletarFilme(id);
-
-		return NoContent();
-	}
 }

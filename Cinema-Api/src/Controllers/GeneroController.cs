@@ -25,12 +25,4 @@ public class GeneroController(GeneroService service) : ControllerBase
 		// Trocar por Created(), vazio mesmo
 		return Created();
 	}
-
-	[HttpDelete]
-	public ActionResult DeletarGenero(int Id)
-	{
-		GeneroService.DeletarGenero(Id);
-
-		return NoContent();
-	}
 }
