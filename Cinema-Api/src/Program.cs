@@ -16,7 +16,7 @@ builder.Services.AddScoped<AtorService>();
 // Add jsonConversion
 builder.Services.Configure<JsonOptions>(options =>
 {
-    options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+	options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
