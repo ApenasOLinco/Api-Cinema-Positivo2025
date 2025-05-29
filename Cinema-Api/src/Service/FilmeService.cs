@@ -97,21 +97,6 @@ public class FilmeService(
 		return filme;
 	}
 
-	public List<Filme> NovosFilmes(List<FilmePostDTO> filmes)
-	{
-		List<Filme> adicionados = [];
-
-		foreach (var filme in filmes)
-		{
-			var adicionado = AddFilme(filme);
-
-			adicionados.Add(adicionado);
-		}
-
-		_masterContext.SaveChanges();
-		return adicionados;
-	}
-
 	public FilmeGetDTO ModificarFilme(int id, FilmePatchDTO patchDto)
 	{
 		var filme = _masterContext

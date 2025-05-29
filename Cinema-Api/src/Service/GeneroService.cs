@@ -67,4 +67,10 @@ public class GeneroService(MasterContext masterContext)
 		return _masterContext.Genero.Select(g => Mapper.Map<Genero, GeneroGetDTO>(g)).ToList();
 
 	}
+	public GeneroGetDTO UmGenero(int id)
+	{
+		var genero = _masterContext.Genero.Where(g => g.Id == id).Select(g => Mapper.Map<Genero, GeneroGetDTO>(g)).FirstOrDefault();
+	   
+	   return genero ?? throw new EntityNotFoundException("Genero não encontrado!!!!!!!!!!!!");
+	}
 }

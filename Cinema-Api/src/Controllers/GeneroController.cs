@@ -12,13 +12,20 @@ namespace Cinema_Api.src.Controllers;
 [Route("api/v1/[controller]")]
 public class GeneroController(GeneroService service) : ControllerBase
 {
-	private GeneroService GeneroService { get; } = service;
+    private GeneroService GeneroService { get; } = service;
 
-	[HttpGet]
-	public ActionResult<List<GeneroGetDTO>> TodosOsGeneros()
+    [HttpGet]
+    public ActionResult<List<GeneroGetDTO>> TodosOsGeneros()
+    {
+        var generos = GeneroService.TodosOsGeneros();
+
+        return Ok(generos);
+    }
+    [HttpGet("{id}")]
+	public ActionResult<GeneroGetDTO> UmGenero([FromRoute(Name = "id")] int id)
 	{
-		var generos = GeneroService.TodosOsGeneros();
+		var genero = GeneroService.UmGenero(id);
 
-		return Ok(generos);
+		return genero is null ? NotFound() : Ok(genero);
 	}
 }
