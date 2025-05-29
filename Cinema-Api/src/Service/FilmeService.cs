@@ -193,7 +193,14 @@ public class FilmeService(
 	{
 		foreach (string dtoGenero in filmeDto.Generos)
 		{
-			_generoService.NovoGenero(dtoGenero);
+			try
+			{
+				_generoService.NovoGenero(dtoGenero);
+			}
+			catch (AlreadyExistsException)
+			{
+				continue;
+			}
 		}
 
 		// Verifica se um filme com mesmo título e
