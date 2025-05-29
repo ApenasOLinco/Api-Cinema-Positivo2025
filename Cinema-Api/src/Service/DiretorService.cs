@@ -1,13 +1,18 @@
+using AutoMapper;
+using Cinema_Api.src.Config.Mapper;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
 using Cinema_Api.src.Models.DTOs.Get;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
 
 public class DiretorService(MasterContext masterContext)
 {
 	private readonly MasterContext _masterContext = masterContext;
+
+	private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
 
 	public Diretor NovoDiretor(DiretorGetDTO diretor)
 	{
@@ -21,6 +26,26 @@ public class DiretorService(MasterContext masterContext)
 		Diretor novoDiretor = CriarDiretorSemVerificar(diretor);
 		return novoDiretor;
 	}
+	public List<DiretorGetDTO> TodosOsDiretores()
+	{
+		var diretores = _masterContext
+			.Diretor.Include(d => d.DataNasc)
+			.Include(d => d.Nome)
+			.Include(d => d.Biografia)
+			.Select(d => Mapper.Map<Diretor, DiretorGetDTO>(d))
+			.ToList();
+
+		return diretores;
+	}
+	public void DeletarDiretor(int Id)
+	{	
+		var diretor =
+		_masterContext.Diretor.FirstOrDefault(d => d.Id == Id)
+		?? throw new EntityNotFoundException($"Uma entidade Diretor de id {Id} não existe.");
+
+		_masterContext.Diretor.Remove(_masterContext.Diretor.First(d => d.Id == Id));
+		_masterContext.SaveChanges();
+	}
 
 	public Diretor GetExistenteOuCriar(DiretorGetDTO dto)
 	{
@@ -29,16 +54,6 @@ public class DiretorService(MasterContext masterContext)
 		diretor ??= CriarDiretorSemVerificar(dto); // Se for nulo, cria um novo
 
 		return diretor;
-	}
-
-	public void DeletarDiretor(int Id)
-	{
-		var diretor =
-		_masterContext.Diretor.FirstOrDefault(d => d.Id == Id)
-		?? throw new EntityNotFoundException($"Uma entidade Diretor de id {Id} não existe.");
-
-		_masterContext.Diretor.Remove(_masterContext.Diretor.First(d => d.Id == Id));
-		_masterContext.SaveChanges();
 	}
 
 	public Diretor? SingleByNomeAndDataNasc(string nome, DateOnly dataNasc)
