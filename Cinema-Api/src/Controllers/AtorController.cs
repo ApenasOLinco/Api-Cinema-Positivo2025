@@ -21,4 +21,16 @@ public class AtorController(AtorService service) : ControllerBase
 
         return ator is null ? NotFound() : Ok(ator);
     }
+    [HttpPost]
+    public ActionResult<AtorGetDTO> NovoAtor([FromBody] AtorPostDTO ator)
+    {
+        var atorCriado = AtorService.NovoAtor(ator);
+
+        if (atorCriado is null)
+        {
+            return Conflict("O Ator já existe no banco de dados.");
+        }
+
+        return CreatedAtAction(nameof(UmAtor), new { id = atorCriado.Id }, ator);
+    }
 }

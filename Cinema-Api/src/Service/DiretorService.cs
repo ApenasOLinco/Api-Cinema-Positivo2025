@@ -51,7 +51,7 @@ public class DiretorService(MasterContext masterContext)
 
 		if (existe)
 			throw new AlreadyExistsException(
-				"Um Filme com título e data de lançamento iguais aos fornecidos já existe."
+				"Um Diretor com nome e data de Nascimento iguais aos fornecidos já existe."
 			);
 
 		var diretor = Mapper.Map<DiretorPostDTO, Diretor>(diretorDto);
