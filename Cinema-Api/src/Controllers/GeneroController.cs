@@ -22,10 +22,22 @@ public class GeneroController(GeneroService service) : ControllerBase
         return Ok(generos);
     }
     [HttpGet("{id}")]
-	public ActionResult<GeneroGetDTO> UmGenero([FromRoute(Name = "id")] int id)
-	{
-		var genero = GeneroService.UmGenero(id);
+    public ActionResult<GeneroGetDTO> UmGenero([FromRoute(Name = "id")] int id)
+    {
+        var genero = GeneroService.UmGenero(id);
 
-		return genero is null ? NotFound() : Ok(genero);
+        return genero is null ? NotFound() : Ok(genero);
+    }
+    [HttpPost]
+	public ActionResult<GeneroGetDTO> NovoGenero([FromBody] GeneroPostDTO genero)
+	{
+		var generoCriado = GeneroService.NovoGenero(genero);
+
+		if (generoCriado is null)
+		{
+			return Conflict("O genero já existe no banco de dados.");
+		}
+
+		return CreatedAtAction(nameof(UmGenero), new { id = generoCriado.Id }, genero);
 	}
 }
