@@ -10,8 +10,20 @@ public class AutoMapperConfig
 {
 	public static void Configurar(IMapperConfigurationExpression cfg)
 	{
+		// Diretor
 		cfg.CreateMap<Diretor, DiretorGetDTO>();
 		cfg.CreateMap<DiretorGetDTO, Diretor>();
+		cfg.CreateMap<DiretorPostDTO, Diretor>();
+
+		// Ator
+		cfg.CreateMap<Ator, AtorGetDTO>();
+		cfg.CreateMap<AtorGetDTO, Ator>();
+		cfg.CreateMap<AtorPostDTO, Ator>();
+
+		// Genero
+		cfg.CreateMap<Genero, GeneroGetDTO>();
+
+		// Filme
 		cfg.CreateMap<FilmePostDTO, Filme>();
 		ConfigurarFilmeParaDTO(cfg);
 	}

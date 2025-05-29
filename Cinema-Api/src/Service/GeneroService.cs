@@ -1,12 +1,19 @@
+using AutoMapper;
+using Cinema_Api.src.Config.Mapper;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
+using Cinema_Api.src.Models.DTOs.Get;
+using Cinema_Api.src.Models.DTOs.Post;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
 
 public class GeneroService(MasterContext masterContext)
 {
 	private readonly MasterContext _masterContext = masterContext;
+
+	private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
 
 	/// <summary>
 	/// Cria um novo gênero, se o gênero fornecido ainda não
@@ -55,5 +62,36 @@ public class GeneroService(MasterContext masterContext)
 		_masterContext.Genero.Add(novoGenero);
 		_masterContext.SaveChanges();
 		return novoGenero;
+	}
+	public List<GeneroGetDTO> TodosOsGeneros()
+	{
+		return _masterContext.Genero.Select(g => Mapper.Map<Genero, GeneroGetDTO>(g)).ToList();
+
+	}
+	public GeneroGetDTO UmGenero(int id)
+	{
+		var genero = _masterContext.Genero.Where(g => g.Id == id).Select(g => Mapper.Map<Genero, GeneroGetDTO>(g)).FirstOrDefault();
+
+		return genero ?? throw new EntityNotFoundException("Genero não encontrado!!!!!!!!!!!!");
+	}
+	public Genero NovoGenero(GeneroPostDTO generoDto)
+	{
+		var existe = _masterContext
+			.Genero.AsEnumerable()
+			.Where(generoBd =>
+				generoBd.Nome.Equals(generoDto.Nome, StringComparison.OrdinalIgnoreCase)
+			)
+			.Any();
+
+		if (existe)
+			throw new AlreadyExistsException(
+				"Um Genero com título igual ao fornecido já existe."
+			);
+
+		var genero = Mapper.Map<GeneroPostDTO, Genero>(generoDto);
+
+		_masterContext.SaveChanges();
+
+		return genero;
 	}
 }
