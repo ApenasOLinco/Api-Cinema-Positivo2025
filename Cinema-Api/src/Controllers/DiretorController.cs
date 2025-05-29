@@ -8,8 +8,6 @@ using static Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior;
 
 namespace Cinema_Api.src.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
 public class DiretorController(DiretorService service) : ControllerBase
 {
 	private DiretorService DiretorService { get; } = service;
@@ -25,7 +23,7 @@ public class DiretorController(DiretorService service) : ControllerBase
 		}
 
 		// Trocar por Created(), vazio mesmo
-		return CreatedAtAction(nameof(UmDiretor), new { Id = diretorCriado.Id }, diretor);
+		return Created();
 	}
 
 	[HttpDelete("{Id}")]

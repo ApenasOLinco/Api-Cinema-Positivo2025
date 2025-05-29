@@ -8,8 +8,6 @@ using static Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior;
 
 namespace Cinema_Api.src.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
 public class GeneroController(GeneroService service) : ControllerBase
 {
 	private GeneroService GeneroService { get; } = service;
@@ -23,9 +21,9 @@ public class GeneroController(GeneroService service) : ControllerBase
 		{
 			return Conflict("O genero já existe no banco de dados.");
 		}
-		
+
 		// Trocar por Created(), vazio mesmo
-		return CreatedAtAction(nameof(UmGenero), new { id = generoCriado.Id }, genero);
+		return Created();
 	}
 
 	[HttpDelete]

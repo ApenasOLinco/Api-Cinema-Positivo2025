@@ -8,12 +8,9 @@ using static Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior;
 
 namespace Cinema_Api.src.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
 public class FilmesController(FilmeService service) : ControllerBase
 {
 	private FilmeService FilmesService { get; } = service;
-
 
 	[HttpPost]
 	public ActionResult<FilmeGetDTO> NovoFilme([FromBody] FilmePostDTO filme)
@@ -26,7 +23,7 @@ public class FilmesController(FilmeService service) : ControllerBase
 		}
 
 		// Trocar por Created(), vazio mesmo
-		return CreatedAtAction(nameof(UmFilme), new { id = filmeCriado.Id }, filme);
+		return Created();
 	}
 
 	[HttpDelete("{id}")]

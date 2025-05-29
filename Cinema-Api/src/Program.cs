@@ -1,5 +1,6 @@
 using Cinema_Api.src.Config;
 using Cinema_Api.src.Context;
+using Cinema_Api.src.Routes;
 using Cinema_Api.src.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,13 +31,13 @@ builder.Services.AddDbContext<MasterContext>(options =>
 
 var app = builder.Build();
 
+ROTA_GET.MapGetRoutes(app);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
-app.MapControllers();
 
 app.Run();

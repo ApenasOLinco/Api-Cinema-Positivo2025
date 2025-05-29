@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema_Api.src.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
 public class AtorController(AtorService service) : ControllerBase
 {
 	private AtorService AtorService { get; } = service;
@@ -22,7 +20,7 @@ public class AtorController(AtorService service) : ControllerBase
 		}
 
 		// Trocar por Created(), vazio mesmo
-		return CreatedAtAction(nameof(UmAtor), new { Id = atorCriado.Id }, ator);
+		return Created();
 	}
 
 	[HttpDelete("{Id}")]
