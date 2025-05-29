@@ -36,7 +36,7 @@ classDiagram
     +nome: string
   }
 
-  Filme "1..*" -- "*" Ator : foiInterpretadoPor
-  Filme "1..*" -- "*" Diretor : foiDirigidoPor
-  Filme "1..*" -- "*" Genero : possui
+  Filme "1..*" -- "1..*" Ator : foiInterpretadoPor
+  Filme "1..*" -- "1..*" Diretor : foiDirigidoPor
+  Filme "1..*" -- "1..*" Genero : possui
 ```
