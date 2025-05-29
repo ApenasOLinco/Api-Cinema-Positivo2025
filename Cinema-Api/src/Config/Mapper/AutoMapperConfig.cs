@@ -20,6 +20,9 @@ public class AutoMapperConfig
 		cfg.CreateMap<AtorGetDTO, Ator>();
 		cfg.CreateMap<AtorPostDTO, Ator>();
 
+		// Genero
+		cfg.CreateMap<Genero, GeneroGetDTO>();
+
 		// Filme
 		cfg.CreateMap<FilmePostDTO, Filme>();
 		ConfigurarFilmeParaDTO(cfg);

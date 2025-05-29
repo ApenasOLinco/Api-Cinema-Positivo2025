@@ -1,12 +1,18 @@
+using AutoMapper;
+using Cinema_Api.src.Config.Mapper;
 using Cinema_Api.src.Context;
 using Cinema_Api.src.Exceptions;
 using Cinema_Api.src.Models;
+using Cinema_Api.src.Models.DTOs.Get;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
 
 public class GeneroService(MasterContext masterContext)
 {
 	private readonly MasterContext _masterContext = masterContext;
+
+	private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
 
 	/// <summary>
 	/// Cria um novo gênero, se o gênero fornecido ainda não
@@ -55,5 +61,10 @@ public class GeneroService(MasterContext masterContext)
 		_masterContext.Genero.Add(novoGenero);
 		_masterContext.SaveChanges();
 		return novoGenero;
+	}
+	public List<GeneroGetDTO> TodosOsGeneros()
+	{
+		return _masterContext.Genero.Select(g => Mapper.Map<Genero, GeneroGetDTO>(g)).ToList();
+
 	}
 }
