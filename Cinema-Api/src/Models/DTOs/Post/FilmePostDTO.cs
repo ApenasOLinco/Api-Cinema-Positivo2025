@@ -4,7 +4,7 @@ namespace Cinema_Api.src.Models.DTOs.Post;
 
 public class FilmePostDTO
 {
-	public required string Titulo  { get; set; }
+	public required string Titulo { get; set; }
 
 	public required int AnoLancamento { get; set; }
 
@@ -15,4 +15,6 @@ public class FilmePostDTO
 	public required List<string> Generos { get; set; }
 
 	public required DiretorGetDTO Diretor { get; set; }
+
+	public required List<Papel> Papeis { get; set; }
 }

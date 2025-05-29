@@ -17,4 +17,6 @@ public class Filme
 	public required Diretor Diretor { get; set; }
 
 	public ICollection<FilmeGenero> FilmesGeneros { get; set; } = [];
+
+	public ICollection<FilmeAtor> FilmesAtores { get; set; } = [];
 }

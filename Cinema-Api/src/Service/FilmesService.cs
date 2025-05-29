@@ -28,24 +28,14 @@ public class FilmesService(
 
 	public List<FilmeGetDTO> TodosOsFilmes()
 	{
-		var filmes = _masterContext
-			.Filme.Include(f => f.FilmesGeneros)
-			.ThenInclude(fg => fg.Genero)
-			.Include(f => f.Diretor)
-			.Select(f => Mapper.Map<Filme, FilmeGetDTO>(f))
-			.ToList();
+		var filmes = FilmesComInclude().Select(f => Mapper.Map<Filme, FilmeGetDTO>(f)).ToList();
 
 		return filmes;
 	}
 
 	public FilmeGetDTO UmFilme(int id)
 	{
-		var filme = _masterContext
-			.Filme.Include(f => f.FilmesGeneros)
-			.ThenInclude(fg => fg.Genero)
-			.Include(f => f.Diretor)
-			.Where(f => f.Id == id)
-			.FirstOrDefault();
+		var filme = FilmesComInclude().Where(f => f.Id == id).FirstOrDefault();
 
 		return filme is null
 			? throw new EntityNotFoundException($"Uma entidade Filme de Id {id} não existe.")
@@ -54,10 +44,7 @@ public class FilmesService(
 
 	public List<FilmeGetDTO> Filtrar(FilmeFilterDTO filtro)
 	{
-		var filmes = _masterContext
-			.Filme.Include(f => f.FilmesGeneros)
-			.ThenInclude(fg => fg.Genero)
-			.Include(f => f.Diretor)
+		var filmes = FilmesComInclude()
 			.AsEnumerable()
 			.Select(f => Mapper.Map<Filme, FilmeGetDTO>(f));
 
@@ -229,6 +216,16 @@ public class FilmesService(
 		var filme = Mapper.Map<FilmePostDTO, Filme>(filmeDto);
 
 		return filme;
+	}
+
+	private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Filme, Ator> FilmesComInclude()
+	{
+		return _masterContext
+			.Filme.Include(f => f.FilmesGeneros)
+			.ThenInclude(fg => fg.Genero)
+			.Include(f => f.Diretor)
+			.Include(f => f.FilmesAtores)
+			.ThenInclude(fa => fa.Ator);
 	}
 
 	#endregion
