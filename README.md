@@ -14,7 +14,6 @@ classDiagram
     +titulo: string
     +anoLancamento: int
     +sinopse: string
-    +posterURLs: string[]
     +notaIMDB: float
   }
 
