@@ -59,7 +59,7 @@ public class ROTA_GET
 		const string ROTA_ATORES = $"{ROTA_BASE}/Atores";
 
 		// Todos os Atores
-		app.MapGet(ROTA_ATORES, (AtorService atorService) => Ok(atorService.TodosOsAtores));
+		app.MapGet(ROTA_ATORES, (AtorService atorService) => Ok(atorService.TodosOsAtores()));
 
 		// Um Ator
 		app.MapGet(

@@ -31,8 +31,7 @@ public class DiretorService(MasterContext masterContext)
 	public DiretorGetDTO UmDiretor(int Id)
 	{
 		var diretor = _masterContext
-			.Diretor.Include(d => d.DataNasc)
-			.Include(d => d.Nome)
+			.Diretor
 			.Where(d => d.Id == Id)
 			.FirstOrDefault();
 
