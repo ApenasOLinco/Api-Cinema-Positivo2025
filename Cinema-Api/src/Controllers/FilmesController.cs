@@ -14,14 +14,6 @@ public class FilmesController(FilmeService service) : ControllerBase
 {
 	private FilmeService FilmesService { get; } = service;
 
-	[HttpGet]
-	public ActionResult<List<FilmeGetDTO>> TodosOsFilmes()
-	{
-		var filmes = FilmesService.TodosOsFilmes();
-
-		return Ok(filmes);
-	}
-
 	[HttpGet("{id}")]
 	public ActionResult<FilmeGetDTO> UmFilme([FromRoute(Name = "id")] int id)
 	{
