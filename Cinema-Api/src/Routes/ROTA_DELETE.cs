@@ -10,7 +10,7 @@ public class ROTA_DELETE
 {
     private const string ROTA_BASE = "/api/v1";
 
-    public static void MapGetRoutes(WebApplication app)
+    public static void MapDeleteRoutes(WebApplication app)
     {
         MapearGeneros(app);
         MapearDiretores(app);
@@ -26,7 +26,7 @@ public class ROTA_DELETE
         ([FromRoute(Name = "id")] int id, GeneroService generoService) =>
             {
                 generoService.DeletarGenero(id);
-                NoContent();
+                return NoContent();
             }
         );
     }
@@ -39,7 +39,7 @@ public class ROTA_DELETE
         ([FromRoute(Name = "id")] int id, DiretorService diretorService) =>
             {
                 diretorService.DeletarDiretor(id);
-                NoContent();
+                return NoContent();
             }
         );
     }
@@ -52,7 +52,7 @@ public class ROTA_DELETE
         ([FromRoute(Name = "id")] int id, FilmeService filmeService) =>
             {
                 filmeService.DeletarFilme(id);
-                NoContent();
+                return NoContent();
             }
         );
     }
@@ -65,7 +65,7 @@ public class ROTA_DELETE
         ([FromRoute(Name = "id")] int id, AtorService atorService) =>
             {
                 atorService.DeletarAtor(id);
-                NoContent();
+                return NoContent();
             }
         );
     }
