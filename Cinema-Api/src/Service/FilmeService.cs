@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Api.src.Service;
 
-public class FilmesService(
+public class FilmeService(
 	MasterContext masterContext,
 	GeneroService generoService,
 	DiretorService diretorService

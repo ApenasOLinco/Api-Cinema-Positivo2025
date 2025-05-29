@@ -10,9 +10,9 @@ namespace Cinema_Api.src.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class FilmesController(FilmesService service) : ControllerBase
+public class FilmesController(FilmeService service) : ControllerBase
 {
-	private FilmesService FilmesService { get; } = service;
+	private FilmeService FilmesService { get; } = service;
 
 	[HttpGet]
 	public ActionResult<List<FilmeGetDTO>> TodosOsFilmes()
