@@ -14,23 +14,6 @@ public class FilmesController(FilmeService service) : ControllerBase
 {
 	private FilmeService FilmesService { get; } = service;
 
-	[HttpGet("{id}")]
-	public ActionResult<FilmeGetDTO> UmFilme([FromRoute(Name = "id")] int id)
-	{
-		var filme = FilmesService.UmFilme(id);
-
-		return filme is null ? NotFound() : Ok(filme);
-	}
-
-	[HttpGet("Filtrar")]
-	public ActionResult<List<FilmeGetDTO>> Filtrar(
-		[FromBody(EmptyBodyBehavior = Disallow)] FilmeFilterDTO filtro
-	)
-	{
-		var filmes = FilmesService.Filtrar(filtro);
-
-		return Ok(filmes);
-	}
 
 	[HttpPost]
 	public ActionResult<FilmeGetDTO> NovoFilme([FromBody] FilmePostDTO filme)
@@ -42,15 +25,8 @@ public class FilmesController(FilmeService service) : ControllerBase
 			return Conflict("O filme já existe no banco de dados.");
 		}
 
+		// Trocar por Created(), vazio mesmo
 		return CreatedAtAction(nameof(UmFilme), new { id = filmeCriado.Id }, filme);
-	}
-
-	[HttpPatch("{id}")]
-	public ActionResult<FilmeGetDTO> ModificarFilme(int id, FilmePatchDTO patchDTO)
-	{
-		var modificado = FilmesService.ModificarFilme(id, patchDTO);
-
-		return Ok(modificado);
 	}
 
 	[HttpDelete("{id}")]

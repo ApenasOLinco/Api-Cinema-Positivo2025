@@ -11,19 +11,6 @@ public class AtorController(AtorService service) : ControllerBase
 {
 	private AtorService AtorService { get; } = service;
 
-	public ActionResult<List<AtorGetDTO>> TodosOsAtores()
-	{
-		return AtorService.TodosOsAtores();
-	}
-
-	[HttpGet("{id}")]
-	public ActionResult<AtorGetDTO> UmAtor([FromRoute(Name = "Id")] int Id)
-	{
-		var ator = AtorService.UmAtor(Id);
-
-		return ator is null ? NotFound() : Ok(ator);
-	}
-
 	[HttpPost]
 	public ActionResult<AtorGetDTO> NovoAtor([FromBody] AtorPostDTO ator)
 	{
@@ -34,6 +21,7 @@ public class AtorController(AtorService service) : ControllerBase
 			return Conflict("O Ator já existe no banco de dados.");
 		}
 
+		// Trocar por Created(), vazio mesmo
 		return CreatedAtAction(nameof(UmAtor), new { Id = atorCriado.Id }, ator);
 	}
 

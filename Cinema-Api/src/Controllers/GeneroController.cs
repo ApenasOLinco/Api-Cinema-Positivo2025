@@ -14,22 +14,6 @@ public class GeneroController(GeneroService service) : ControllerBase
 {
 	private GeneroService GeneroService { get; } = service;
 
-	[HttpGet]
-	public ActionResult<List<GeneroGetDTO>> TodosOsGeneros()
-	{
-		var generos = GeneroService.TodosOsGeneros();
-
-		return Ok(generos);
-	}
-
-	[HttpGet("{id}")]
-	public ActionResult<GeneroGetDTO> UmGenero([FromRoute(Name = "id")] int id)
-	{
-		var genero = GeneroService.UmGenero(id);
-
-		return genero is null ? NotFound() : Ok(genero);
-	}
-
 	[HttpPost]
 	public ActionResult<GeneroGetDTO> NovoGenero([FromBody] GeneroPostDTO genero)
 	{
@@ -39,7 +23,8 @@ public class GeneroController(GeneroService service) : ControllerBase
 		{
 			return Conflict("O genero já existe no banco de dados.");
 		}
-
+		
+		// Trocar por Created(), vazio mesmo
 		return CreatedAtAction(nameof(UmGenero), new { id = generoCriado.Id }, genero);
 	}
 
