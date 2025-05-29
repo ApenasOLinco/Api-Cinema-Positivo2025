@@ -21,13 +21,13 @@ classDiagram
   class Ator {
     +id: int
     +nome: string
-    +dataNascimento: Date
+    +dataNasc: Date
   }
 
   class Diretor {
     +id: int
     +nome: string
-    +dataNascimento: string
+    +dataNasc: string
     +biografia: string
   }
 
