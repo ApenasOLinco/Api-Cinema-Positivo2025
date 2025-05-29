@@ -29,10 +29,10 @@ public class AutoMapperConfig
 				dest => dest.Atores,
 				opt =>
 					opt.MapFrom(src =>
-						src.FilmesAtores.Select(fa => new Papel
+						src.FilmesAtores.Select(fa => new AtorPapel
 							{
 								Ator = new(fa.Ator.Nome, fa.Ator.DataNasc),
-								AtorPapel = fa.Papel,
+								Papel = fa.Papel,
 							})
 							.ToList()
 					)
