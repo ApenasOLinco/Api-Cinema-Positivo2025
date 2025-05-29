@@ -14,5 +14,5 @@ public class FilmeAtor
 
 	public required Ator Ator { get; set; }
 
-	public required string Papel;
+	public required string Papel { get; set; }
 }
