@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<FilmeService>();
 builder.Services.AddScoped<GeneroService>();
 builder.Services.AddScoped<DiretorService>();
+builder.Services.AddScoped<AtorService>();
 
 // Add Controllers to the container.
 builder
