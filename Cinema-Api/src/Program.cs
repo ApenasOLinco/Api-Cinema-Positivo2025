@@ -9,9 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // CORS
 builder.Services.AddCors(options => {
-	options.AddPolicy("AllowAllOrigin", builder =>
+	options.AddPolicy("AllowAll", builder =>
 	{
-		builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+		builder
+		.AllowAnyHeader()
+		.AllowAnyOrigin()
+		.AllowAnyMethod();
 	});
 });
 
@@ -38,6 +41,8 @@ builder.Services.AddDbContext<MasterContext>(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 ROTA_GET.MapGetRoutes(app);
 
