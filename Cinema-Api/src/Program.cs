@@ -7,6 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS
+builder.Services.AddCors(options => {
+	options.AddPolicy("AllowAllOrigin", builder =>
+	{
+		builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+	});
+});
+
 // Services
 builder.Services.AddScoped<FilmeService>();
 builder.Services.AddScoped<GeneroService>();
