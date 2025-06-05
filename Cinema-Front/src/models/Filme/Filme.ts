@@ -1,3 +1,0 @@
-class Filme {
-	Titulo!: String;
-}
