@@ -1,5 +1,5 @@
 export default interface DiretorGetResponse {
-	Nome: String;
-	DataNasc: Date;
-	Biografia?: String;
+	nome: String;
+	dataNasc: Date;
+	biografia?: String;
 }
