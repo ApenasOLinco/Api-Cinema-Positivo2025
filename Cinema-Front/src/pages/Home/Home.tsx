@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import TodosOsFilmes from "../service/FilmesService";
-import type FilmeGetResponse from "../models/Filme/FilmeGetResponse";
+import TodosOsFilmes from "../../service/FilmesService";
+import type FilmeGetResponse from "../../models/Filme/FilmeGetResponse";
+import CartaoFilme from "../../components/CartaoFilme";
 
 function Home() {
 	const [filmes, setFilmes] = useState<FilmeGetResponse[]>([]);
@@ -11,7 +12,11 @@ function Home() {
 
 	return (
 		<div className="home">
-			<h1>FILMIFY</h1>
+			<ul>
+				{filmes.map(filme => (
+					<CartaoFilme filme={filme} />
+				))}
+			</ul>
 		</div>
 	);
 }
