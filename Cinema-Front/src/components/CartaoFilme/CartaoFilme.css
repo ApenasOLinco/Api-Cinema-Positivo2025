@@ -1,0 +1,30 @@
+p {
+	text-align: justify;
+	text-indent: 2ch;
+}
+
+img {
+	width: 100%;
+	height: auto;
+
+	filter: brightness(80%);
+}
+
+.cartao-filme {
+	display: flex;
+	padding: 2px;
+
+	width: 80vw;
+	overflow: hidden;
+}
+
+.filme-info {
+	z-index: 1;
+}
+
+.filme-poster {
+	width: 100%;
+	height: auto;
+	opacity: .3;
+	filter: blur(5px);
+}
