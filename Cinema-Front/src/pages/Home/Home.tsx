@@ -14,7 +14,7 @@ function Home() {
 		<div className="home">
 			<ul>
 				{filmes.map(filme => (
-					<CartaoFilme filme={filme} />
+					<CartaoFilme filme={filme} key={filme.id} />
 				))}
 			</ul>
 		</div>
