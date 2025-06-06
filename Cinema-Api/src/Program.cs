@@ -5,6 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(config =>
+	config.AddPolicy(
+		"AllowAll",
+		policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()
+	)
+);
+
 // Services
 builder.Services.AddScoped<FilmeService>();
 builder.Services.AddScoped<GeneroService>();
@@ -29,6 +36,7 @@ builder.Services.AddDbContext<MasterContext>(options =>
 });
 
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
