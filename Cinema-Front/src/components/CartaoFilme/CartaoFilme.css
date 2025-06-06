@@ -44,18 +44,19 @@ hr {
 	}
 }
 
-.filme-info {
-	flex-shrink: 0;
-	flex-basis: 20%;
-}
 
 
 /*=============================================
 =            		Tabela           
 =============================================*/
 
+table.filme-info {
+	flex-shrink: 0;
+	flex-basis: 20%;
+}
+
 table {
-	border-collapse: separate;
+	border-collapse: collapse;
 	border-spacing: 1rem 0;
 
 	& tr > * {
@@ -64,6 +65,7 @@ table {
 
 	& td {
 		text-align: center;
+		padding: .5rem;
 	}
 
 	& ul {
@@ -92,3 +94,18 @@ table {
 }
 
 /*=====  End of Tabela  ======*/
+
+
+/*=============================================
+=		            Eventos            
+=============================================*/
+
+.cartao-filme:hover {
+	background-color: rgb(42, 44, 51);
+	filter: brightness(120%);
+
+	cursor: pointer;
+}
+
+/*=====  End of Eventos  ======*/
+
