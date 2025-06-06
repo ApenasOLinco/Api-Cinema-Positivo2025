@@ -11,13 +11,15 @@ function Home() {
 	}, []);
 
 	return (
-		<div className="home">
-			<ul>
-				{filmes.map(filme => (
-					<CartaoFilme filme={filme} key={filme.id} />
-				))}
-			</ul>
-		</div>
+		<>
+			{/* Listagem dos filmes */}
+			{filmes.map(filme => (
+				<div key={filme.id}>
+					<CartaoFilme filme={filme} />
+					<hr />
+				</div>
+			))}
+		</>
 	);
 }
 

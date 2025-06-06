@@ -1,30 +1,94 @@
-p {
-	text-align: justify;
-	text-indent: 2ch;
+img {
+	height: 100%;
 }
 
-img {
-	width: 100%;
-	height: auto;
-
-	filter: brightness(80%);
+hr {
+	border-width: 1px;
 }
 
 .cartao-filme {
 	display: flex;
-	padding: 2px;
+	justify-content: space-evenly;
+	column-gap: 2ch;
 
-	width: 80vw;
-	overflow: hidden;
-}
+	width: 100vw;
+	height: 6rem;
 
-.filme-info {
-	z-index: 1;
+	margin: .8ch 0;
+
+	overflow: visible;
 }
 
 .filme-poster {
-	width: 100%;
-	height: auto;
+	height: 100%;
 	opacity: .3;
-	filter: blur(5px);
 }
+
+.filme-summary {
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	width: 60ch;
+
+	& p {
+		padding: 0;
+		overflow-y: scroll;
+		text-align: justify;
+		text-overflow: ellipsis;
+	}
+
+
+	& h3 {
+		margin: 0 0 .5rem;
+	}
+}
+
+.filme-info {
+	flex-shrink: 0;
+	flex-basis: 20%;
+}
+
+
+/*=============================================
+=            		Tabela           
+=============================================*/
+
+table {
+	border-collapse: separate;
+	border-spacing: 1rem 0;
+
+	& tr > * {
+		border: 1px solid white;
+	}
+
+	& td {
+		text-align: center;
+	}
+
+	& ul {
+		list-style: none;
+
+		display: inline-flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: .5rem;
+
+		max-width: 200px;
+
+		& li {
+			border: 1px solid;
+			border-radius: 1rem;
+
+			text-align: center;
+			text-wrap: nowrap;
+
+			width: fit-content;
+
+			padding: 0 .5ch;
+		}
+
+	}
+}
+
+/*=====  End of Tabela  ======*/
