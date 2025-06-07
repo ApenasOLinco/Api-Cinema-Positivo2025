@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TodosOsFilmes from "../../service/FilmesService";
+import { TodosOsFilmes } from "../../service/FilmesService";
 import type FilmeGetResponse from "../../models/Filme/FilmeGetResponse";
 import CartaoFilme from "../../components/CartaoFilme";
 import BarraPesquisa from "../../components/BarraPesquisa";
@@ -10,7 +10,7 @@ function Home() {
 
 	useEffect(() => {
 		TodosOsFilmes().then((filmes) => setFilmes(filmes))
-	}, []);
+	});
 
 	const handlePesquisaChange = (texto: string) => {
 		setQuery(texto);
@@ -18,11 +18,11 @@ function Home() {
 
 	return (
 		<>
-			<BarraPesquisa onChange={handlePesquisaChange}/>
+			<BarraPesquisa onChange={handlePesquisaChange} />
 
-			{/* Listagem dos filmes, um filme só é listado se seu título começar com o texto da pesquisa */}
+			{/** Um filme só é listado se seu título começar com o texto da pesquisa */}
 			{filmes.map(filme => (
-				filme.titulo.toLowerCase().startsWith(query.toLowerCase()) 
+				filme.titulo.toLowerCase().startsWith(query.toLowerCase())
 				&&
 				<div key={filme.id}>
 					<CartaoFilme filme={filme} />
