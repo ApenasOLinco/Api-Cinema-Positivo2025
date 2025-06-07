@@ -6,7 +6,7 @@ import type FilmeGetResponse from "../../models/Filme/FilmeGetResponse";
 function DetalhesFilme() {
 	const [filme, setFilme] = useState<FilmeGetResponse>();
 	const [carregando, setCarregando] = useState(false);
-	const [erro, setErro] = useState<string | null>(null);
+	const [erro, setErro] = useState<string | null>();
 
 	let { id } = useParams();
 	id = id || '-1';

@@ -7,14 +7,33 @@ import BarraPesquisa from "../../components/BarraPesquisa";
 function Home() {
 	const [filmes, setFilmes] = useState<FilmeGetResponse[]>([]);
 	const [query, setQuery] = useState("");
+	const [carregando, setCarregando] = useState(false);
+	const [erro, setErro] = useState<string | null>(null);
 
 	useEffect(() => {
-		TodosOsFilmes().then((filmes) => setFilmes(filmes))
-	});
+		const carregarFilmes = async () => {
+			setCarregando(true);
+
+			try {
+				const filmesDados = await TodosOsFilmes();
+				setFilmes(filmesDados);
+			} catch (erro) {
+				if (erro instanceof Error) setErro(erro.message);
+			} finally {
+				setCarregando(false);
+			}
+		};
+
+		carregarFilmes();
+	}, []);
 
 	const handlePesquisaChange = (texto: string) => {
 		setQuery(texto);
 	}
+
+	if (carregando) return <h3>Carregando...</h3>
+
+	if (erro) return <h3>Erro: {erro}</h3>
 
 	return (
 		<>
