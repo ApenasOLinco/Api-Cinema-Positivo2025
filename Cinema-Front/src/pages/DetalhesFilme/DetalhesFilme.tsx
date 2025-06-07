@@ -32,6 +32,8 @@ function DetalhesFilme() {
 
 	if (erro) return <h3>Erro: {erro}</h3>
 
+	if (filme) document.title = filme.titulo;
+
 	return (
 		filme &&
 		<>
