@@ -9,41 +9,20 @@
 </head>
 
 <body>
-	<h1>Filmify</h1>
+	<header>
+		<nav>
+			<h1>Filmify</h1>
+			<ul id="nav-links">
+				<li><a href="./home.html">Home</a></li>
+				<li><a href="./todos-os-filmes.html">Filmes</a></li>
+				<li><a href="./todos-os-atores.html">Atores</a></li>
+				<li><a href="./todos-os-diretores.html">Diretores</a></li>
+			</ul>
+		</nav>
+	</header>
 
-	<template id="cartao-template">
-		<div class="cartao-filme">
-			<div class="filme-poster">
-				<img src="/resources/images/placeholder-image.png" alt="poster" />
-			</div>
-
-			<div class="filme-summary">
-				<h3>{filme.titulo}</h3>
-				<p>{filme.sinopse}</p>
-			</div>
-
-			<table class="filme-info">
-				<thead>
-					<tr>
-						<th>Diretor</th>
-						<th>Gêneros</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>{filme.diretor.nome}</td>
-						<td>
-							<ul class="filme-generos">
-								<li>{generos}</li>
-							</ul>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<hr/>
-	</template>
+	<h1>BEM-VINDO :)</h1>
+	
 </body>
 
-<script type="module" src="/js/index.js"></script>
 </html>
