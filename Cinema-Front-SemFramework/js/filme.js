@@ -35,7 +35,7 @@ async function carregarFilme() {
 
 	const diretor =
 		createLi(detalhes).innerHTML =
-		`<strong>Diretor:</strong> <a href="./diretor.js?id=${filme.diretor.id}">${filme.diretor.nome}</a>`;
+		`<strong>Diretor:</strong> <a href="./diretor.html?id=${filme.diretor.id}">${filme.diretor.nome}</a>`;
 
 	const atores = createLi(detalhes).innerHTML =
 		`

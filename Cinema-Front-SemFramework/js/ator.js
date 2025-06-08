@@ -1,11 +1,6 @@
 import { umAtor } from "./service/AtorService.js";
 import { appendHr, createLi } from "./util.js";
 
-const ENV = await fetch("/resources/env.json")
-.then(resp => resp.json())
-
-const FETCH_URL = `${ENV.api_url}/api/v1/Filmes`;
-
 async function carregarAtor() {
 	const id = new URLSearchParams(window.location.search).get("id");
 	const erro = document.createElement('h3');
