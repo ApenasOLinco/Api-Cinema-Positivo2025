@@ -3,7 +3,7 @@ const ENV = await fetch("/resources/env.json")
 
 export const API_URL = ENV.api_url;
 
-export async function get(url) {
+export async function _get(url) {
 	const resposta = await fetch(
 		url,
 		{
@@ -13,9 +13,20 @@ export async function get(url) {
 	);
 
 	if (!resposta.ok) {
-		console.error(`Erro ${resposta.status}: ${resposta.statusText}`);
-		return;
+		throw new Error(`Erro ${resposta.status}: ${resposta.statusText}`);
 	}
 
 	return await resposta.json();
+}
+
+export async function _delete(url) {
+	const resposta = await fetch(
+		url,
+		{
+			method: 'DELETE',
+			mode: 'cors'
+		}
+	)
+
+	return resposta;
 }
