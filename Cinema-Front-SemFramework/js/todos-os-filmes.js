@@ -16,6 +16,19 @@ filmes.forEach(filme => {
 	infos[0].innerText = filme.diretor.nome;
 	infos[1].querySelector('ul').innerHTML = filme.generos.map(g => `<li>${g}</li>`).join("");
 
+	
 	let clone = document.importNode(cartao_template.content, true);
-	document.body.appendChild(clone)
+	clone.querySelector(".cartao").id = `filme-${filme.id}`;
+
+	const btn_deletar = clone.querySelector('.btn-deletar');
+	btn_deletar.addEventListener('click', async (e) => {
+		
+		if(service.deletarFilme(filme.id)) {
+			alert(`Filme ${filme.titulo} deletado com sucesso.`);
+			document.querySelector(`#filme-${filme.id}`).remove();
+		}
+
+	});
+	
+	document.body.appendChild(clone);
 });
