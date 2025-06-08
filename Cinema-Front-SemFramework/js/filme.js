@@ -1,15 +1,5 @@
 import * as service from "./service/FilmesService.js";
-
-function appendHr() {
-	document.body.innerHTML += '<hr/>';
-}
-
-function createLi(ul) {
-	const li = document.createElement('li');
-	ul.appendChild(li);
-
-	return li;
-}
+import { appendHr, createLi } from "./util.js";
 
 async function carregarFilme() {
 	const id = new URLSearchParams(window.location.search).get("id");
@@ -23,7 +13,7 @@ async function carregarFilme() {
 
 	const filme = await service.umFilme(id);
 
-	document.title += `: ${filme.titulo}`;
+	document.title += `: ${filme.titulo} (Filme)`;
 
 	const tituloELancamento = document.createElement('h2');
 	tituloELancamento.innerText = `${filme.titulo} (${filme.anoLancamento})`

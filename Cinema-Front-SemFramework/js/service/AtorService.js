@@ -1,6 +1,6 @@
 import * as fetchService from "./FetchService.js";
 
-const FETCH_URL = `${fetchService.API_URL}/api/v1/Atores`;
+const FETCH_URL = `${fetchService.API_URL}/api/v1/Ator`;
 
 export async function todosOsAtores() {
 	const atores = await fetchService.get(FETCH_URL);
