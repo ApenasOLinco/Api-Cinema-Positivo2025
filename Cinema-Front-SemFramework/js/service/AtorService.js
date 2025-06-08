@@ -13,3 +13,9 @@ export async function umAtor(id) {
 
 	return ator;
 }
+
+export async function deletarAtor(id) {
+	const foiDeletado = await requestService._delete(`${FETCH_URL}/${id}`);
+
+	return foiDeletado;
+}

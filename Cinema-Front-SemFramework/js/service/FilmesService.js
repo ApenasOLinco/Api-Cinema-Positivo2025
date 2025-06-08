@@ -14,5 +14,7 @@ export async function umFilme(id) {
 }
 
 export async function deletarFilme(id) {
-	const response = await requestService._delete(`${FETCH_URL}/${id}`);
+	const foiDeletado = await requestService._delete(`${FETCH_URL}/${id}`);
+
+	return foiDeletado;
 }
