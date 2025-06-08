@@ -1,6 +1,6 @@
-import { todosOsDiretores } from "./service/DiretorService.js";
+import * as service from "./service/DiretorService.js";
 
-const diretores = await todosOsDiretores();
+const diretores = await service.todosOsDiretores();
 
 // Obter template
 const cartao_template = document.querySelector("#cartao-template");
@@ -20,5 +20,19 @@ diretores.forEach(diretor => {
 	info.innerHTML = diretor.dataNasc;
 
 	let clone = document.importNode(cartao_template.content, true);
+	clone.querySelector(".cartao").id = `diretor-${diretor.id}`;
+
+	const btn_deletar = clone.querySelector('.btn-deletar');
+	btn_deletar.addEventListener('click', async (e) => {
+
+		if (service.deletarDiretor(diretor.id)) {
+			alert(`diretor ${diretor.nome} deletado com sucesso.`);
+			document.querySelector(`#diretor-${diretor.id}`).remove();
+			return;
+		}
+
+		alert(`Não foi possível deletar o diretor.`);
+
+	});
 	document.body.appendChild(clone)
 });
