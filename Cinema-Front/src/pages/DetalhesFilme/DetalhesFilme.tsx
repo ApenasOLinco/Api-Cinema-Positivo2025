@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { UmFilme } from "../../service/FilmesService";
 import { useEffect, useState } from "react";
 import type FilmeGetResponse from "../../models/Filme/FilmeGetResponse";
+import './DetalhesFilme.css';
 
 function DetalhesFilme() {
 	const [filme, setFilme] = useState<FilmeGetResponse>();
@@ -37,10 +38,12 @@ function DetalhesFilme() {
 	return (
 		filme &&
 		<>
-			<img src="/images/placeholder-image.png" alt={`Poster do filme ${filme.titulo}`} />
+			<div id="banner-container">
+				<img id="banner" src="/images/placeholder-image.png" alt={`Poster do filme ${filme.titulo}`} />
+			</div>
 
-			<h1 className="titulo">{filme.titulo} ({filme.anoLancamento})</h1>
-			<ul className="generos">
+			<h1 id="titulo">{filme.titulo} ({filme.anoLancamento})</h1>
+			<ul className="filme-generos">
 				{filme.generos.map((genero, index) => (
 					<li key={index}>{genero}</li>
 				))}
