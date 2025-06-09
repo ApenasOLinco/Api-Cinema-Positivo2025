@@ -22,7 +22,36 @@
 }
 
 body {
-	padding: 2ch;
+	padding: 1ch;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1ch;
+
+	margin-bottom: 2rem;
+
+	& ul {
+		display: flex;
+		width: 100%;
+		justify-content: space-around;
+		list-style: none;
+
+		& a {
+			color: white;
+			text-decoration: none;
+
+			&:visited {
+				color: white;
+			}
+
+			&:hover {
+				color: cadetblue;
+			}
+		}
+	}
 }
 
 ul.filme-generos {
@@ -164,3 +193,68 @@ table {
 }
 
 /*=====  End of Eventos  ======*/
+
+
+/*=============================================
+=            		FORM            
+=============================================*/
+
+fieldset {
+	border: 1px solid #8F8F8F;
+	padding: 1ch;
+
+	&:not(:last-of-type) {
+		margin-bottom: 2rem;
+	}
+}
+
+fieldset fieldset {
+	background-color: #1A1A1A;
+	color: honeydew;
+	border: 3px gray;
+	border-style: double;
+}
+
+legend {
+	font-weight: bold;
+	margin: auto;
+}
+
+label {
+	text-align: center;
+	display: block;
+}
+
+input {
+	display: block;
+	margin: auto;
+	margin-bottom: 1rem;
+
+	&[type="text"] {
+		text-align: center;
+		
+		width: 50%;
+		height: 1.5rem;
+	}
+}
+
+textarea {
+	display: block;
+	margin: auto;
+
+	min-height: 5rem;
+	width: 50%;
+	resize: vertical;
+}
+
+button {
+	display: block;
+	margin: auto;
+}
+
+button {
+	margin-top: 1rem;
+	padding: 1ch;
+}
+
+/*=====  End of FORM  ======*/
