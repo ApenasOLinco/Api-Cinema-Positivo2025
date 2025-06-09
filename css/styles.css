@@ -1,0 +1,260 @@
+:root {
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+	/* outline: 1px solid red; */
+}
+
+body {
+	padding: 1ch;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1ch;
+
+	margin-bottom: 2rem;
+
+	& ul {
+		display: flex;
+		width: 100%;
+		justify-content: space-around;
+		list-style: none;
+
+		& a {
+			color: white;
+			text-decoration: none;
+
+			&:visited {
+				color: white;
+			}
+
+			&:hover {
+				color: cadetblue;
+			}
+		}
+	}
+}
+
+ul.filme-generos {
+	list-style: none;
+
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: .5rem;
+
+	max-width: 200px;
+
+	& li {
+		border: 1px solid;
+		border-radius: 1rem;
+
+		text-align: center;
+		text-wrap: nowrap;
+
+		padding: 0 .5ch;
+	}
+
+}
+
+img {
+	height: 100%;
+}
+
+hr {
+	border-width: 1px;
+}
+
+.cartao {
+	display: flex;
+	justify-content: space-evenly;
+	column-gap: 2ch;
+
+	width: 100%;
+	height: 16dvh;
+
+	margin: .8ch 0;
+
+	overflow: visible;
+
+	padding-bottom: .8ch;
+	border-bottom: 1px solid white;
+}
+
+.cartao-imagem {
+	height: 100%;
+	opacity: .3;
+}
+
+.cartao-summary {
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	width: 60ch;
+
+	& p {
+		padding: 0;
+		overflow-y: scroll;
+		text-align: justify;
+		text-overflow: ellipsis;
+	}
+
+	& a {
+		text-decoration: none;
+
+		&:hover {
+			color: azure;
+		}
+	}
+
+	& h3 {
+		margin: 0 0 .5rem;
+	}
+}
+
+.btn-deletar {
+	align-self: center;
+
+	min-width: 5ch;
+	min-height: 5ch;
+
+	border-radius: 20px;
+	border-color: antiquewhite;
+
+	background-color: #444;
+
+	&:hover {
+		cursor:pointer;
+		background-color: #4f4f4f;
+		border-color: aliceblue;
+	}
+
+	&:active {
+		background-color: #333;
+	}
+}
+
+
+/*=============================================
+=            		Tabela           
+=============================================*/
+
+table.cartao-info {
+	flex-shrink: 0;
+	flex-basis: 20%;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 1rem 0;
+
+	& tr>* {
+		border: 1px solid white;
+	}
+
+	& td {
+		text-align: center;
+		padding: .5rem;
+	}
+}
+
+/*=====  End of Tabela  ======*/
+
+
+/*=============================================
+=		            Eventos            
+=============================================*/
+
+.cartao:hover {
+	background-color: rgb(42, 44, 51);
+	filter: brightness(120%);
+
+	cursor: pointer;
+}
+
+/*=====  End of Eventos  ======*/
+
+
+/*=============================================
+=            		FORM            
+=============================================*/
+
+fieldset {
+	border: 1px solid #8F8F8F;
+	padding: 1ch;
+
+	&:not(:last-of-type) {
+		margin-bottom: 2rem;
+	}
+}
+
+fieldset fieldset {
+	background-color: #1A1A1A;
+	color: honeydew;
+	border: 3px gray;
+	border-style: double;
+}
+
+legend {
+	font-weight: bold;
+	margin: auto;
+}
+
+label {
+	text-align: center;
+	display: block;
+}
+
+input {
+	display: block;
+	margin: auto;
+	margin-bottom: 1rem;
+
+	&[type="text"] {
+		text-align: center;
+		
+		width: 50%;
+		height: 1.5rem;
+	}
+}
+
+textarea {
+	display: block;
+	margin: auto;
+
+	min-height: 5rem;
+	width: 50%;
+	resize: vertical;
+}
+
+button {
+	display: block;
+	margin: auto;
+}
+
+button {
+	margin-top: 1rem;
+	padding: 1ch;
+}
+
+/*=====  End of FORM  ======*/

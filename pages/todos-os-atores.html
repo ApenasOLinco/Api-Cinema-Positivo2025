@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Filmify: Atores</title>
+</head>
+
+<body>
+	<!DOCTYPE html>
+	<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/css/styles.css">
+		<title>Filmify: Filmes</title>
+	</head>
+
+	<body>
+		<header>
+			<nav>
+				<h1>Filmify</h1>
+				<ul id="nav-links">
+					<li><a href="./home.html">Home</a></li>
+					<li><a href="./todos-os-filmes.html">Filmes</a></li>
+					<li><a href="./todos-os-atores.html">Atores</a></li>
+					<li><a href="./todos-os-diretores.html">Diretores</a></li>
+					<li><a href="./novo-filme.html">Novo Filme</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- listagem de atores -->
+		<template id="cartao-template">
+			<div class="cartao">
+				<div class="cartao-imagem">
+					<img src="/resources/images/placeholder-image.png" alt="cartao imagem" />
+				</div>
+
+				<div class="cartao-summary">
+					<h3>{ator.nome}</h3>
+				</div>
+
+				<table class="cartao-info">
+					<thead>
+						<tr>
+							<th>Data de nascimento</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{ator.dataNasc}</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn-deletar">X</button>
+			</div>
+		</template>
+	</body>
+
+	<script type="module" src="/js/todos-os-atores.js"></script>
+
+	</html>
+</body>
+
+</html>

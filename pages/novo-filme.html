@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/styles.css">
+	<title>Filmify: Adicionar Filme</title>
+</head>
+
+<body>
+	<header>
+		<nav>
+			<h1>Filmify</h1>
+			<ul id="nav-links">
+				<li><a href="./home.html">Home</a></li>
+				<li><a href="./todos-os-filmes.html">Filmes</a></li>
+				<li><a href="./todos-os-atores.html">Atores</a></li>
+				<li><a href="./todos-os-diretores.html">Diretores</a></li>
+				<li><a href="./novo-filme.html">Novo Filme</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<form id="form-filme">
+		<fieldset id="filme-fieldset">
+			<legend>Filme</legend>
+
+			<label for="titulo">Título:</label>
+			<input type="text" name="titulo" required>
+
+			<label for="anoLancamento">Ano de Lançamento:</label>
+			<input type="number" name="anoLancamento" required>
+
+			<label for="sinopse">Sinopse:</label>
+			<input type="text" name="sinopse">
+
+			<label for="notaIMDB">Nota no IMDB:</label>
+			<input type="number" step=".1" name="notaIMDB">
+
+			<label for="generos">Generos (Separados por ","):</label>
+			<input type="text" name="generos">
+		</fieldset>
+
+		<fieldset id="diretor-fieldset">
+			<legend>Diretor</legend>
+
+			<label for="diretor-nome">Nome:</label>
+			<input type="text" name="diretor-nome" required>
+
+			<label for="diretor-dataNasc">Data de Nascimento:</label>
+			<input type="date" name="diretor-dataNasc" required>
+
+			<label for="diretor-biografia">Biografia:</label>
+			<textarea name="diretor-biografia" placeholder="Nasceu em... Conhecido por..."></textarea>
+		</fieldset>
+
+		<fieldset id="papeis-fieldset">
+			<legend>Papéis</legend>
+
+			<div id="papeis-container">
+				<template id="papel-template">
+					<fieldset>
+						<legend class="papel-legenda">{Papel}</legend>
+
+						<label class="ator-nome-label" for="ator-nome">Nome do ator:</label>
+						<input class="ator-nome" type="text" name="ator-nome" required>
+
+						<label for="ator-dataNasc">Data de nascimento do ator:</label>
+						<input class="ator-dataNasc" type="date" name="ator-dataNasc" required>
+
+						<label for="papel">Papel:</label>
+						<input class="papel" type="text" name="papel" required>
+					</fieldset>
+				</template>
+			</div>
+
+			<button type="button" id="btn-adicionar-papel">Adicionar papel</button>
+		</fieldset>
+
+		<button type="submit" id="btn-enviar">Enviar Filme</button>
+	</form>
+</body>
+
+<script type="module" src="/js/novo-filme.js"></script>
+
+</html>
