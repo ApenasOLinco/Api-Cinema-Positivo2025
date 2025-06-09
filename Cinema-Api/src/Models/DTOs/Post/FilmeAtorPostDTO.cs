@@ -1,3 +1,4 @@
+namespace Cinema_Api.src.Models.DTOs.Post;
 
 public class FilmeAtorPostDTO
 {

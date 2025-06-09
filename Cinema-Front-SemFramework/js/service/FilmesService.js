@@ -20,7 +20,7 @@ export async function deletarFilme(id) {
 }
 
 export async function novoFilme(filme) {
-	const resposta = await requestService._post(filme);
+	const resposta = await requestService._post(FETCH_URL, filme);
 
 	return resposta.ok;
 }

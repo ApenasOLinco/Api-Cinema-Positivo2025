@@ -39,30 +39,41 @@ adicionarPapel();
 document.querySelector('#btn-adicionar-papel').addEventListener('click', adicionarPapel);
 
 // Enviar form
-document.querySelector('#form-filme').addEventListener('submit', (e) => {
+document.querySelector('#form-filme').addEventListener('submit', async (e) => {
 	if(!e.target.checkValidity()) {
 		return;
 	}
 	
 	e.preventDefault();
 
-	const data = new FormData(document.querySelector('#form-filme'));
+	const dados = new FormData(document.querySelector('#form-filme'));
 
-	const generos = data.get('generos')
+	const generos = dados.get('generos')
 		.replace(/(,| )+$/, '')
 		.replaceAll(/(,|, ){2,}/g, ',')
 		.split(/(?:, *)/);
 
+	const formatarData = (dataString) => {
+		const data = new Date(dataString);
+
+		const dia = String(data.getUTCDate()).padStart(2, '0');
+		const mes = String(data.getMonth() + 1).padStart(2, '0');
+		const ano = String(data.getFullYear());
+
+		const formatada = `${dia}-${mes}-${ano}`;
+		return formatada;
+	}
+
 	const filme = {
-		titulo: data.get('titulo'),
-		anoLancamento: data.get('anoLancamento'),
-		sinopse: data.get('sinopse'),
-		notaIMDB: data.get('notaIMDB'),
+		titulo: dados.get('titulo'),
+		anoLancamento: Number.parseInt(dados.get('anoLancamento')),
+		sinopse: dados.get('sinopse'),
+		notaIMDB: Number.parseFloat(dados.get('notaIMDB')),
 		generos: generos,
 		diretor: {
-			nome: data.get('diretor-nome'),
-			dataNasc: data.get('diretor-dataNasc'),
-			biografia: data.get('diretor-biografia')
+			nome: dados.get('diretor-nome'),
+			dataNasc: formatarData(dados.get('diretor-dataNasc')),
+			biografia: dados.get('diretor-biografia')
 		},
 		papeis: []
 	}
@@ -72,21 +83,19 @@ document.querySelector('#form-filme').addEventListener('submit', (e) => {
 			const papel = personagem.querySelector('.papel').value;
 			const ator = {
 				nome: personagem.querySelector('.ator-nome').value,
-				dataNasc: personagem.querySelector('.ator-dataNasc').value
+				dataNasc: formatarData(personagem.querySelector('.ator-dataNasc').value)
 			}
 
 			filme.papeis.push({ ator: ator, papel: papel });
 		});
 
-	const resposta = service.novoFilme(filme);
+	const foiCriado = await service.novoFilme(filme);
 	
-	if(resposta.ok) {
+	if(foiCriado) {
 		alert(`Filme "${filme.titulo}" adicionado com sucesso.`);
 	} else {
 		alert(
 			`Não foi possível adicionar o filme fornecido. Tente novamente.`
 		);
 	}
-
-	console.log("🚀 ~ document.querySelector ~ filme:", filme);
 });
