@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/styles.css">
 	<title>Filmify: Adicionar Filme</title>
 </head>
 
@@ -43,27 +44,33 @@
 			<textarea name="diretor-biografia" placeholder="Nasceu em... Conhecido por..."></textarea>
 		</fieldset>
 
-		<fieldset>
+		<fieldset id="papeis-fieldset">
 			<legend>Papéis</legend>
 
-			<template id="papel-template">
-				<fieldset>
-					<legend class="papel-legenda">{Papel}</legend>
+			<div id="papeis-container">
+				<template id="papel-template">
+					<fieldset>
+						<legend class="papel-legenda">{Papel}</legend>
 
-					<label for="ator-nome">Nome do ator:</label>
-					<input type="text" name="ator-nome" required>
+						<label class="ator-nome-label" for="ator-nome">Nome do ator:</label>
+						<input class="ator-nome" type="text" name="ator-nome" required>
 
-					<label for="ator-dataNasc">Data de nascimento do ator:</label>
-					<input type="date" name="ator-dataNasc" required>
+						<label for="ator-dataNasc">Data de nascimento do ator:</label>
+						<input class="ator-dataNasc" type="date" name="ator-dataNasc" required>
 
-					<label for="papel">Papel:</label>
-					<input type="text" name="papel" required>
-				</fieldset>
-			</template>
+						<label for="papel">Papel:</label>
+						<input class="papel" type="text" name="papel" required>
+					</fieldset>
+				</template>
+			</div>
 
-			<button type="button">Adicionar papel</button>
+			<button type="button" id="btn-adicionar-papel">Adicionar papel</button>
 		</fieldset>
+
+		<input type="submit" value="Enviar filme" id="btn-enviar">
 	</form>
 </body>
+
+<script type="module" src="/js/novo-filme.js"></script>
 
 </html>

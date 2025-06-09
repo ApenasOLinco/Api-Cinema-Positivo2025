@@ -30,3 +30,19 @@ export async function _delete(url) {
 
 	return resposta;
 }
+
+export async function _post(url, entidade) {
+	const resposta = await fetch(
+		url,
+		{
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(entidade)
+		}
+	);
+
+	return resposta;
+}

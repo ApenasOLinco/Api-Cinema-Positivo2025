@@ -18,3 +18,9 @@ export async function deletarFilme(id) {
 
 	return foiDeletado;
 }
+
+export async function novoFilme(filme) {
+	const resposta = await requestService._post(filme);
+
+	return resposta.ok;
+}

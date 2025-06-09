@@ -14,7 +14,7 @@ public class FilmePostDTO
 
 	public required List<string> Generos { get; set; }
 
-	public required DiretorGetDTO Diretor { get; set; }
+	public required DiretorPostDTO Diretor { get; set; }
 
 	public required List<AtorPapel> Papeis { get; set; }
 }
