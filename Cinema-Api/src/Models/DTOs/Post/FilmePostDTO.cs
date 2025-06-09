@@ -1,5 +1,3 @@
-using Cinema_Api.src.Models.DTOs.Get;
-
 namespace Cinema_Api.src.Models.DTOs.Post;
 
 public class FilmePostDTO
@@ -16,5 +14,5 @@ public class FilmePostDTO
 
 	public required DiretorPostDTO Diretor { get; set; }
 
-	public required List<AtorPapel> Papeis { get; set; }
+	public required List<FilmeAtorPostDTO> Papeis { get; set; }
 }

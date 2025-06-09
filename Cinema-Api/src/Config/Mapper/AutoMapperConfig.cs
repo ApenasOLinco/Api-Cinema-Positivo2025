@@ -41,7 +41,7 @@ public class AutoMapperConfig
 				dest => dest.Atores,
 				opt =>
 					opt.MapFrom(src =>
-						src.FilmesAtores.Select(fa => new AtorPapel
+						src.FilmesAtores.Select(fa => new FilmeAtorGetDTO
 							{
 								Ator = new(fa.Ator.Id, fa.Ator.Nome, fa.Ator.DataNasc),
 								Papel = fa.Papel,
