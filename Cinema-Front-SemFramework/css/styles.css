@@ -21,6 +21,17 @@
 	/* outline: 1px solid red; */
 }
 
+a {
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+	font-weight: bold;
+	text-decoration: none;
+
+	&:hover {
+		color: #ff8080;
+	}
+}
+
 body {
 	padding: 1ch;
 }
@@ -38,19 +49,6 @@ nav {
 		width: 100%;
 		justify-content: space-around;
 		list-style: none;
-
-		& a {
-			color: white;
-			text-decoration: none;
-
-			&:visited {
-				color: white;
-			}
-
-			&:hover {
-				color: cadetblue;
-			}
-		}
 	}
 }
 
@@ -60,7 +58,7 @@ ul.filme-generos {
 	display: inline-flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: .5rem;
+	gap: 0.5rem;
 
 	max-width: 200px;
 
@@ -71,9 +69,8 @@ ul.filme-generos {
 		text-align: center;
 		text-wrap: nowrap;
 
-		padding: 0 .5ch;
+		padding: 0 0.5ch;
 	}
-
 }
 
 img {
@@ -92,17 +89,17 @@ hr {
 	width: 100%;
 	height: 16dvh;
 
-	margin: .8ch 0;
+	margin: 0.8ch 0;
 
 	overflow: visible;
 
-	padding-bottom: .8ch;
+	padding-bottom: 0.8ch;
 	border-bottom: 1px solid white;
 }
 
 .cartao-imagem {
 	height: 100%;
-	opacity: .3;
+	opacity: 0.3;
 }
 
 .cartao-summary {
@@ -119,16 +116,8 @@ hr {
 		text-overflow: ellipsis;
 	}
 
-	& a {
-		text-decoration: none;
-
-		&:hover {
-			color: azure;
-		}
-	}
-
 	& h3 {
-		margin: 0 0 .5rem;
+		margin: 0 0 0.5rem;
 	}
 }
 
@@ -144,7 +133,7 @@ hr {
 	background-color: #444;
 
 	&:hover {
-		cursor:pointer;
+		cursor: pointer;
 		background-color: #4f4f4f;
 		border-color: aliceblue;
 	}
@@ -153,7 +142,6 @@ hr {
 		background-color: #333;
 	}
 }
-
 
 /*=============================================
 =            		Tabela           
@@ -168,18 +156,17 @@ table {
 	border-collapse: collapse;
 	border-spacing: 1rem 0;
 
-	& tr>* {
+	& tr > * {
 		border: 1px solid white;
 	}
 
 	& td {
 		text-align: center;
-		padding: .5rem;
+		padding: 0.5rem;
 	}
 }
 
 /*=====  End of Tabela  ======*/
-
 
 /*=============================================
 =		            Eventos            
@@ -194,13 +181,12 @@ table {
 
 /*=====  End of Eventos  ======*/
 
-
 /*=============================================
 =            		FORM            
 =============================================*/
 
 fieldset {
-	border: 1px solid #8F8F8F;
+	border: 1px solid #8f8f8f;
 	padding: 1ch;
 
 	&:not(:last-of-type) {
@@ -209,7 +195,7 @@ fieldset {
 }
 
 fieldset fieldset {
-	background-color: #1A1A1A;
+	background-color: #1a1a1a;
 	color: honeydew;
 	border: 3px gray;
 	border-style: double;
@@ -232,7 +218,7 @@ input {
 
 	&[type="text"] {
 		text-align: center;
-		
+
 		width: 50%;
 		height: 1.5rem;
 	}
@@ -248,11 +234,9 @@ textarea {
 }
 
 button {
+	color: unset;
 	display: block;
 	margin: auto;
-}
-
-button {
 	margin-top: 1rem;
 	padding: 1ch;
 }
