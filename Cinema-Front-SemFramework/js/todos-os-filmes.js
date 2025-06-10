@@ -8,7 +8,7 @@ const cartao_template = document.querySelector("#cartao-template");
 filmes.forEach(filme => {
 	// Modificar o template antes de criar o elemento novo efetivamente
 	const filmeSummary = cartao_template.content.querySelector(".cartao-summary");
-	filmeSummary.querySelector("h3").innerHTML = `<a href="./filme.html?id=${filme.id}">${filme.titulo}</a>`;
+	filmeSummary.querySelector("h3").innerHTML = `<a href="./filme.html?id=${filme.id}">${filme.titulo} - R$${filme.preco}</a>`;
 	filmeSummary.querySelector("p").innerText = filme.sinopse;
 
 	const filmeInfo = cartao_template.content.querySelector(".cartao-info");

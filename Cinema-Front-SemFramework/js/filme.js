@@ -16,8 +16,14 @@ async function carregarFilme() {
 	document.title += `: ${filme.titulo} (Filme)`;
 
 	const tituloELancamento = document.createElement('h2');
-	tituloELancamento.innerText = `${filme.titulo} (${filme.anoLancamento})`
+	tituloELancamento.innerText = `${filme.titulo} (${filme.anoLancamento}) - R$${filme.preco}`
 	document.body.appendChild(tituloELancamento);
+
+	const generos = document.createElement('ul');
+	generos.className = 'filme-generos';
+	generos.innerHTML = filme.generos.map(g => `<li>${g}</li>`).join("");
+	
+	document.body.appendChild(generos);
 
 	appendHr();
 
