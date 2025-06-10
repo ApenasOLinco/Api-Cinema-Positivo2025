@@ -14,7 +14,8 @@ namespace Cinema_Api.src.Service;
 public class FilmeService(
 	MasterContext masterContext,
 	GeneroService generoService,
-	DiretorService diretorService
+	DiretorService diretorService,
+	AtorService atorService
 )
 {
 	private readonly MasterContext _masterContext = masterContext;
@@ -22,6 +23,8 @@ public class FilmeService(
 	private readonly GeneroService _generoService = generoService;
 
 	private readonly DiretorService _diretorService = diretorService;
+
+	private readonly AtorService _atorService = atorService;
 
 	// Ferramenta que transforma objetos de um tipo para objetos de outro
 	private readonly Mapper Mapper = new(new MapperConfiguration(AutoMapperConfig.Configurar));
@@ -87,9 +90,49 @@ public class FilmeService(
 		return [.. filmes];
 	}
 
-	public Filme NovoFilme(FilmePostDTO filmeDto)
+	public Filme AddFilme(FilmePostDTO filmeDto)
 	{
-		var filme = AddFilme(filmeDto);
+		// Verifica se um filme com mesmo título e
+		// ano de lançamento já existe no banco de dados
+		var existe = _masterContext
+			.Filme.AsEnumerable()
+			.Where(filmeBd =>
+				filmeBd.Titulo.Equals(filmeDto.Titulo, StringComparison.OrdinalIgnoreCase)
+				&& filmeBd.AnoLancamento == filmeDto.AnoLancamento
+			)
+			.Any();
+
+		if (existe)
+			throw new AlreadyExistsException(
+				"Um Filme com título e data de lançamento iguais aos fornecidos já existe."
+			);
+
+		var filme = Mapper.Map<FilmePostDTO, Filme>(filmeDto);
+
+		// Gêneros
+		foreach (string dtoGenero in filmeDto.Generos)
+		{
+			Genero genero = _generoService.GetExistenteOuCriar(dtoGenero);
+
+			_masterContext.FilmeGenero.Add(new() { Filme = filme, Genero = genero });
+		}
+
+		// Atores
+		foreach (FilmeAtorPostDTO dtoPapel in filmeDto.Papeis)
+		{
+			var ator = _atorService.GetExistenteOuCriar(dtoPapel.Ator);
+
+			_masterContext.FilmeAtor.Add(
+				new()
+				{
+					Filme = filme,
+					Ator = ator,
+					Papel = dtoPapel.Papel,
+				}
+			);
+		}
+
+		var diretor = _diretorService.GetExistenteOuCriar(filmeDto.Diretor);
 
 		_masterContext.Filme.Add(filme);
 		_masterContext.SaveChanges();
@@ -169,42 +212,6 @@ public class FilmeService(
 	}
 
 	#region Métodos Privados
-
-	private Filme AddFilme(FilmePostDTO filmeDto)
-	{
-		foreach (string dtoGenero in filmeDto.Generos)
-		{
-			try
-			{
-				_generoService.NovoGenero(dtoGenero);
-			}
-			catch (AlreadyExistsException)
-			{
-				continue;
-			}
-		}
-
-		// Verifica se um filme com mesmo título e
-		// ano de lançamento já existe no banco de dados
-		var existe = _masterContext
-			.Filme.AsEnumerable()
-			.Where(filmeBd =>
-				filmeBd.Titulo.Equals(filmeDto.Titulo, StringComparison.OrdinalIgnoreCase)
-				&& filmeBd.AnoLancamento == filmeDto.AnoLancamento
-			)
-			.Any();
-
-		if (existe)
-			throw new AlreadyExistsException(
-				"Um Filme com título e data de lançamento iguais aos fornecidos já existe."
-			);
-
-		var diretor = _diretorService.GetExistenteOuCriar(filmeDto.Diretor);
-
-		var filme = Mapper.Map<FilmePostDTO, Filme>(filmeDto);
-
-		return filme;
-	}
 
 	private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Filme, Ator> FilmesComInclude()
 	{

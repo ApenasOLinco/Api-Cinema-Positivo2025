@@ -93,12 +93,7 @@ public class DiretorService(MasterContext masterContext)
 
 	private Diretor CriarDiretorSemVerificar(DiretorPostDTO diretor)
 	{
-		var novoDiretor = new Diretor
-		{
-			Nome = diretor.Nome,
-			DataNasc = diretor.DataNasc,
-			Biografia = diretor.Biografia!,
-		};
+		var novoDiretor = Mapper.Map<DiretorPostDTO, Diretor>(diretor);
 
 		_masterContext.Diretor.Add(novoDiretor);
 		_masterContext.SaveChanges();

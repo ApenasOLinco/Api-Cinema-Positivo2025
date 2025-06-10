@@ -43,7 +43,7 @@ public class FilmesController(FilmeService service) : ControllerBase
 	[HttpPost]
 	public ActionResult<FilmeGetDTO> NovoFilme([FromBody] FilmePostDTO filme)
 	{
-		var filmeCriado = FilmesService.NovoFilme(filme);
+		var filmeCriado = FilmesService.AddFilme(filme);
 
 		if (filmeCriado is null)
 		{
