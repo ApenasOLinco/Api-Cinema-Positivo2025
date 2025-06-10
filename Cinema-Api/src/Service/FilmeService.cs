@@ -109,6 +109,11 @@ public class FilmeService(
 
 		var filme = Mapper.Map<FilmePostDTO, Filme>(filmeDto);
 
+		var diretor = _diretorService.GetExistenteOuCriar(filmeDto.Diretor);
+
+		_masterContext.Filme.Add(filme);
+		_masterContext.SaveChanges();
+
 		// Gêneros
 		foreach (string dtoGenero in filmeDto.Generos)
 		{
@@ -132,9 +137,6 @@ public class FilmeService(
 			);
 		}
 
-		var diretor = _diretorService.GetExistenteOuCriar(filmeDto.Diretor);
-
-		_masterContext.Filme.Add(filme);
 		_masterContext.SaveChanges();
 
 		return filme;
