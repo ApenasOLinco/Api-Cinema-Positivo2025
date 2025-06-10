@@ -66,9 +66,10 @@ document.querySelector('#form-filme').addEventListener('submit', async (e) => {
 
 	const filme = {
 		titulo: dados.get('titulo'),
-		anoLancamento: Number.parseInt(dados.get('anoLancamento')),
+		anoLancamento: parseInt(dados.get('anoLancamento')),
 		sinopse: dados.get('sinopse'),
-		notaIMDB: Number.parseFloat(dados.get('notaIMDB')),
+		notaIMDB: parseFloat(dados.get('notaIMDB')),
+		preco: parseFloat(dados.get('preco')),
 		generos: generos,
 		diretor: {
 			nome: dados.get('diretor-nome'),
